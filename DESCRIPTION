@@ -1,0 +1,37 @@
+Package: luplot
+Type: Package
+Title: Landuse Plot Library
+Version: 3.50.0
+Date: 2019-07-06
+Author: Benjamin Bodirsky, Jan Philipp Dietrich, Michael Krause, Miodrag
+    Stevanovic, Florian Humpenoeder, Lavinia Baumstark, David Klein, Susanne
+    Rolinski, Xiaoxi Wang
+Maintainer: Benjamin Bodirsky <bodirsky@pik-potsdam.de>
+Description: Some useful functions to plot data such as a map plot function for
+    MAgPIE objects.
+Depends:
+    R(>= 2.15.1),
+    magclass
+Imports:
+    quitte,
+    rworldmap,
+    fields,
+    luscale,
+    reshape2,
+    ggplot2,
+    dplyr,
+    Hmisc,
+    graphics,
+    magpiesets,
+    grDevices,
+    mip,
+    xml2,
+	  lusweave,
+  	RColorBrewer,
+  	sp,
+  	data.table
+License: LGPL-3 | file LICENSE
+LazyData: no
+Encoding: UTF-8
+RoxygenNote: 6.1.1
+ValidationKey: 63290500
