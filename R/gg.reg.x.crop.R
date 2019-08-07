@@ -72,7 +72,7 @@
 #' @export
 #' @importFrom reshape2 melt
 #' @importFrom ggplot2 ggplot aes_ scale_y_log10 geom_hline geom_line geom_point facet_grid theme element_text element_rect ggtitle scale_color_manual xlab scale_y_sqrt
-#' @importFrom dplyr rbind_all
+#' @importFrom dplyr bind_rows
 
 gg.reg.x.crop <- function(..., ylab="", legend_name="", legend_labels=NULL, legend_position="bottom", 
                           plot_title=NULL, palette=NULL, y_scales="fixed", y_scale_type="log10", 
@@ -102,7 +102,7 @@ gg.reg.x.crop <- function(..., ylab="", legend_name="", legend_labels=NULL, lege
   dat <- lapply(dat, melt, id=c("Cell","Region","Year","Data1"))
   
   # merge the data frames into one data frame
-  dat <- rbind_all(dat)
+  dat <- bind_rows(dat)
   
   # default colour palette
   if(is.null(palette)){
