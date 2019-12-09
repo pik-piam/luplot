@@ -53,8 +53,8 @@ rescaled for fitting on portrait pages.
 
 \dontrun{
 sw<-swopen("croparea_reg.pdf")
-swlatex(sw,"\\newpage")
-swlatex(sw,"\\section{Croparea - regional}")
+swlatex(sw,"\newpage")
+swlatex(sw,"\section{Croparea - regional}")
 swoutput(sw,croparea(gdx),"mio. ha",scenario="test")
 swclose(sw)}
 

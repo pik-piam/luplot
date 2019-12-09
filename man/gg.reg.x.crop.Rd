@@ -77,12 +77,12 @@ activities per plot for (landscape) printing on a standard A4 paper format.
 
   \dontrun{
   gg.reg.x.crop(magpie.reg.prod, magpie.supply, magpie.export,
-   legend_labels=c("Regional\\nProduction",
+   legend_labels=c("Regional\nProduction",
   "Supply","Export"), plot_title="Plot", palette=c("yellow","red","green"))
   
   gg.reg.x.crop(self.suff("../Some_magpie_run_in_the_output_folder/fulldata.gdx")
   , palette="magenta", 
-  legend_labels="Self-Sufficiency\\nRatios", y_breaks=c(0,1,10))	
+  legend_labels="Self-Sufficiency\nRatios", y_breaks=c(0,1,10))	
   
   You can specify your magpie object as much as possible. If no scaling
   of y-axis is required, type for 

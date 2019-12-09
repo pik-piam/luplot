@@ -6,12 +6,12 @@
 \usage{
 plotmap2(data,file=NULL,title="World map",legend_range=NULL,
 legendname="Cell share",lowcol="grey95",midcol="orange",
-highcol="darkred",midpoint=0.5, facet_grid="Year~Data1",
+highcol="darkred",midpoint=0.5, facet_grid="Year~Data1", nrow=NULL, ncol=NULL, 
 scale=2,breaks=T,labs=T,borders=TRUE,MAgPIE_regions=F, 
 axis_text_col="black",legend_discrete=FALSE,legend_breaks=NULL,
 show_percent=FALSE, sea=TRUE,land_colour="white",
-legend_height=NULL,legend_width=NULL,text_size=12,
-legend_position="right",facet_style="default")
+legend_height=2,legend_width=NULL,text_size=12,
+legend_position="right",facet_style="default",plot_height=10,plot_width=20)
 }
 \arguments{
 \item{data}{MAgPIE object}
@@ -33,7 +33,11 @@ legend_position="right",facet_style="default")
 \item{midpoint}{Value indicating where the transformation from lowcol to
 highcol takes place.}
 
-\item{facet_grid}{facets formula used in ggplot2 with default "Year~Data1"}
+\item{facet_grid}{facets formula used in ggplot2 with default "Year~Data1". Falls back to facet_wrap for "Data1".}
+
+\item{nrow}{number rows for facet_wrap}
+
+\item{ncol}{number columns for facet_wrap}
 
 \item{scale}{scaling of ggplot2 object before saving to file}
 
@@ -66,6 +70,10 @@ highcol takes place.}
 \item{legend_position}{right (default), left, top, bottom or none}
 
 \item{facet_style}{style of facets, default or paper}
+
+\item{plot_height}{plot height in cm}
+
+\item{plot_width}{plot width in cm}
 }
 \description{
 Plots maps MAgPIE objects

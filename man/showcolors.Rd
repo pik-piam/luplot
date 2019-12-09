@@ -2,7 +2,7 @@
 % Please edit documentation in R/showcolors.R
 \name{showcolors}
 \alias{showcolors}
-\title{Creates bar plot with given colors}
+\title{Creates bar plot to display given colors}
 \usage{
 showcolors(...)
 }

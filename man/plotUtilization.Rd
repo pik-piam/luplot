@@ -4,9 +4,12 @@
 \alias{plotUtilization}
 \title{plotUtilization}
 \usage{
-plotUtilization(x, products = "kall", categories = c("Food", "Feed",
-  "Processing", "Seed", "Supply Chain Loss", "Material",
-  "Domestic Balanceflow"))
+plotUtilization(
+  x,
+  products = "kall",
+  categories = c("Food", "Feed", "Processing", "Seed", "Supply Chain Loss", "Material",
+    "Domestic Balanceflow")
+)
 }
 \arguments{
 \item{x}{A magpie or quitte object, or a list of magpie or quitte objects.}

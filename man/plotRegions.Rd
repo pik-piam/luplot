@@ -4,7 +4,14 @@
 \alias{plotRegions}
 \title{plotRegions}
 \usage{
-plotRegions(mapping=NULL, cex=1, pt.cex=2)
+plotRegions(
+  mapping = NULL,
+  cex = 1,
+  pt.cex = 2,
+  title = "",
+  addLegend = TRUE,
+  ...
+)
 }
 \arguments{
 \item{mapping}{A path to the mapping that provides iso to regional definition.}
@@ -12,6 +19,12 @@ plotRegions(mapping=NULL, cex=1, pt.cex=2)
 \item{cex}{Controls the legend font size. Default is 1.}
 
 \item{pt.cex}{Controls the legend color box size. Default is 2.}
+
+\item{title}{Title of the map}
+
+\item{addLegend}{decides whether a legend is plotted or not}
+
+\item{...}{further arguments forwarded to \code{\link{plotcountrymap}}}
 }
 \value{
 Plots a regional map.
@@ -27,6 +40,9 @@ The function works only with the mappings as defined in the \code{inputdata/mapp
 plotRegions(mapping="inputdata/mappings/regional/regionmappingMAgPIE.csv")
 }
 
+}
+\seealso{
+\code{\link{plotcountrymap}}
 }
 \author{
 Mishko Stevanovic

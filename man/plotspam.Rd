@@ -4,7 +4,7 @@
 \alias{plotspam}
 \title{Plots Spam object as map}
 \usage{
-plotspam(spam,type="pdf",name="spamplot", folder=".")
+plotspam(spam,type="pdf",name="spamplot", folder=".",color="brewer")
 }
 \arguments{
 \item{spam}{A spam relation object (either object itself or file name of a
@@ -15,6 +15,8 @@ spam object)}
 \item{name}{name to be used in file name}
 
 \item{folder}{folder the output should be written to}
+
+\item{color}{brewer: 12 colors iterating, random: (number of cluster)-different colors}
 }
 \description{
 Function to plot spam relation objects as maps
@@ -27,5 +29,5 @@ Function to plot spam relation objects as maps
 \code{\link{map2image}}
 }
 \author{
-Jan Philipp Dietrich
+Jan Philipp Dietrich, Kristine Karstens
 }

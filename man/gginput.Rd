@@ -4,7 +4,7 @@
 \alias{gginput}
 \title{gginput}
 \usage{
-gginput(data, scatter=NULL, mappings=NULL, na.rm=FALSE)
+gginput(data, scatter=NULL, mappings=NULL, na.rm=FALSE, verbose=TRUE)
 }
 \arguments{
 \item{data}{MAgPIE object which provides the data for ggplot}
@@ -18,6 +18,8 @@ which then can be used for aesthetics in ggplot}
 
 \item{na.rm}{Boolean which decides whether NA values should be removed from
 the data.}
+
+\item{verbose}{Boolean which decides whether info messages should be printed to screen or not.}
 }
 \value{
 Dataframe usable for ggplot

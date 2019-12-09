@@ -4,11 +4,11 @@
 \alias{magpie2ggplot2}
 \title{magpie2ggplot2}
 \usage{
-magpie2ggplot2(data,scenario="default",ylab="Value",title="",
+magpie2ggplot2(data,scenario="default",ylab="Value",title=NULL,
 xaxis="Year",yaxis="Value",facet_x="Region", facet_y=NULL,
 geom="line",stack=F,color="Scenario",fill="Region",
 shape=NULL,linetype=NULL,alpha=NULL,labs=NULL,stat=NULL,
-text_size=12,hline=NULL,legend_position="right",
+text_size=11,hline=NULL,legend_position="right",
 scales="fixed",ncol=5,xlim=NULL,ylim=NULL,file=NULL,
 scale=NULL, breaks_x=waiver(),breaks_y=waiver(),
 xaxis_angle=90,xlab="Year",linewidth=1,pointwidth=2,
@@ -40,7 +40,7 @@ name. Default: "default"}
 
 \item{facet_y}{y-axis facet, default: NULL}
 
-\item{geom}{"line","point","bar", or "area"}
+\item{geom}{"line","point","bar", or "area". If "none" only the ggplot base object is returned.}
 
 \item{stack}{stacked bar plot (TRUE) or not (FALSE)}
 
