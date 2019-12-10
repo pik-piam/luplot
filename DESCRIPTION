@@ -1,8 +1,8 @@
 Package: luplot
 Type: Package
 Title: Landuse Plot Library
-Version: 3.50.2
-Date: 2019-12-09
+Version: 3.50.3
+Date: 2019-12-10
 Author: Benjamin Bodirsky, Jan Philipp Dietrich, Michael Krause, Miodrag
     Stevanovic, Florian Humpenoeder, Lavinia Baumstark, David Klein, Susanne
     Rolinski, Xiaoxi Wang
@@ -33,5 +33,5 @@ Imports:
 License: LGPL-3 | file LICENSE
 LazyData: no
 Encoding: UTF-8
-RoxygenNote: 7.0.0
-ValidationKey: 63872978
+RoxygenNote: 7.0.2
+ValidationKey: 63894720

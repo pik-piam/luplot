@@ -64,7 +64,7 @@ dimension.  The comparison is performed columnwise.
 \examples{
 
 	\dontrun{
-	performancePlot(magpie_prod,fao_prod,qnt="98%",mfrow=c(3,2),fname="test",
+	performancePlot(magpie_prod,fao_prod,qnt="98\%",mfrow=c(3,2),fname="test",
 	measures=c("Willmott","Pearson"))
 	performancePlot(magpie_prod,fao_prod)
 	performancePlot(magpie_prod, fao_prod, fname="MAgPIE_FAO_production", 
