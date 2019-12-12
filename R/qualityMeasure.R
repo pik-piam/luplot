@@ -71,13 +71,13 @@ qualityMeasure <- function(pd, od, wt, measures=c("Willmott","Nash Sutcliffe"),p
 	
 	# Root mean squere error
 	if("RMSE" %in% measures){
-		index <- sqrt(sum((pd-od)^2)/(nrow(pd)*ncol(pd))) 
+		index <- sqrt(sum((pd-od)^2)/(length(pd))) 
 		indices["RMSE"] <- index
 	}
 	
 	# Mean absolute error
 	if("MAE" %in% measures){
-		index <- sum(abs(pd-od))/(nrow(pd)*ncol(pd))
+		index <- sum(abs(pd-od))/(length(pd))
 		indices["MAE"] <- index
 	}
 	
