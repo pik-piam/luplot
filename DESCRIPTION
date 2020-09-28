@@ -1,11 +1,18 @@
 Package: luplot
 Type: Package
 Title: Landuse Plot Library
-Version: 3.50.5
-Date: 2019-12-12
-Author: Benjamin Bodirsky, Jan Philipp Dietrich, Michael Krause, Miodrag
-    Stevanovic, Florian Humpenoeder, Lavinia Baumstark, David Klein, Susanne
-    Rolinski, Xiaoxi Wang
+Version: 3.51.0
+Date: 2020-09-28
+Authors@R: c(person("Benjamin Leon", "Bodirsky", email = "bodirsky@pik-potsdam.de", role = c("aut","cre")),
+             person("Jan Philipp", "Dietrich", email = "dietrich@pik-potsdam.de", role = "aut"),
+			 person("Michael", "Krause", email = "krause@pik-potsdam.de", role = "aut"),
+			 person("Miodrag", "Stevanovic", email = "miodrag@pik-potsdam.de", role = "aut"),
+			 person("Florian", "Humpenoeder", email = "humpenoeder@pik-potsdam.de", role = "aut"),
+		     person("Isabelle", "Weindl", email = "weindl@pik-potsdam.de", role = "aut"),
+			 person("Lavinia", "Baumstark", email = "baumstark@pik-potsdam.de",role = "aut"), 
+		     person("David", "Klein", email = "klein@pik-potsdam.de",role = "aut"),
+			 person("Susanne", "Rolinski", email="rolinski@pik-potsdam.de",role = "aut"),
+			 person("Xiaoxi", "Wang", email="wang@pik-potsdam.de",role = "aut"))
 Maintainer: Benjamin Bodirsky <bodirsky@pik-potsdam.de>
 Description: Some useful functions to plot data such as a map plot function for
     MAgPIE objects.
@@ -33,5 +40,4 @@ Imports:
 License: LGPL-3 | file LICENSE
 LazyData: no
 Encoding: UTF-8
-RoxygenNote: 7.0.2
-ValidationKey: 63938210
+RoxygenNote: 7.1.1
