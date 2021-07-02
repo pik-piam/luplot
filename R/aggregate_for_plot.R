@@ -22,7 +22,7 @@
 #' scratch_plot(aggregate_for_plot(population_magpie[,,2],region_plotorder=c(10,1:9)))
 #' }
 #' @export
-#' @importFrom magclass magpieResolution getRegions setCells getCells getNames<- getYears getYears<- getRegions<- getNames
+#' @importFrom magclass getRegions setCells getCells getNames<- getYears getYears<- getRegions<- getNames
 
 aggregate_for_plot<-function(plotdata, dimension="region", region_plotorder=NULL)
 {
