@@ -51,6 +51,7 @@
 #' @export
 #' @importFrom ggplot2 ggplot aes_ geom_polygon scale_fill_manual waiver geom_raster scale_fill_gradient2 scale_fill_gradient theme coord_cartesian ggtitle element_rect element_line scale_x_continuous scale_y_continuous geom_path element_text element_blank guides guide_colorbar ggsave
 #' @importFrom grDevices colorRampPalette
+#' @importFrom utils head tail
  
 
 plotmap2 <- function(data,file=NULL,title="World map",legend_range=NULL,legendname="Cell share",lowcol="grey95",midcol="orange",highcol="darkred",midpoint=0.5,facet_grid="Year~Data1",nrow=NULL,ncol=NULL,scale=2,breaks=T,labs=T,borders=TRUE,MAgPIE_regions=F,axis_text_col="black",legend_discrete=FALSE,legend_breaks=NULL,show_percent=FALSE,sea=TRUE,land_colour="white",legend_height=2,legend_width=NULL,text_size=12,legend_position="right",facet_style="default",plot_height=10,plot_width=20) {

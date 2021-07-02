@@ -1,0 +1,37 @@
+{
+  "title": "luplot: Landuse Plot Library",
+  "version": "3.51.1",
+  "description": "<p>Some useful functions to plot data such as a map plot function for\n    MAgPIE objects.<\/p>",
+  "creators": [
+    {
+      "name": "Bodirsky, Benjamin Leon"
+    },
+    {
+      "name": "Dietrich, Jan Philipp"
+    },
+    {
+      "name": "Krause, Michael"
+    },
+    {
+      "name": "Stevanovic, Miodrag"
+    },
+    {
+      "name": "Humpenoeder, Florian"
+    },
+    {
+      "name": "Weindl, Isabelle"
+    },
+    {
+      "name": "Baumstark, Lavinia"
+    },
+    {
+      "name": "Klein, David"
+    },
+    {
+      "name": "Rolinski, Susanne"
+    },
+    {
+      "name": "Wang, Xiaoxi"
+    }
+  ]
+}
