@@ -6,8 +6,8 @@
 \usage{
 plotmap2(data,file=NULL,title="World map",legend_range=NULL,
 legendname="Cell share",lowcol="grey95",midcol="orange",
-highcol="darkred",midpoint=0.5, facet_grid="Year~Data1", nrow=NULL, ncol=NULL, 
-scale=2,breaks=T,labs=T,borders=TRUE,MAgPIE_regions=F, 
+highcol="darkred",midpoint=0.5, facet_grid="Year~Data1", nrow=NULL, ncol=NULL,
+scale=2,breaks=TRUE,labs=TRUE,borders=TRUE,MAgPIE_regions=FALSE,
 axis_text_col="black",legend_discrete=FALSE,legend_breaks=NULL,
 show_percent=FALSE, sea=TRUE,land_colour="white",
 legend_height=2,legend_width=NULL,text_size=12,
@@ -82,7 +82,7 @@ Plots maps MAgPIE objects
 Makes use of ggplot2 map plotting capabilites
 }
 \examples{
-#plotmap2(data)
+# plotmap2(data)
 #' #@importFrom  RColorBrewer
 }
 \seealso{

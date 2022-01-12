@@ -2,3 +2,6 @@
 ^\.Rproj\.user$
 ^\.buildlibrary$
 ^.*\.zenodo.json$
+^\.pre-commit-config\.yaml$
+^\.github$
+^codecov\.yml$
