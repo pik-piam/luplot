@@ -6,7 +6,7 @@
 #' is the name of the region and \code{cluster} is the number of the cluster.
 #' @seealso \code{\link{plotspam}}
 #' @importFrom data.table data.table
-#' @importFrom ggplot2 scale_fill_manual theme_linedraw scale_alpha_continuous
+#' @importFrom ggplot2 scale_fill_manual theme_linedraw scale_alpha_continuous geom_tile
 #' @examples 
 #'   x <- paste(rep(paste0("REG",1:5),each=12000),rep(1:25,each=2400),sep=".")[1:59199]
 #'   plotregionscluster(x)
@@ -45,11 +45,11 @@ plotregionscluster <- function(x) {
   
   map <- ggplot(x,aes_(~lon,~lat)) + 
          geom_polygon(data=wrld_simpl_df, aes_(~long,~lat, group=~group, fill=~hole), fill="lightgrey") + 
-         geom_raster(aes_(fill=~region,alpha=~alpha)) + 
+         geom_tile(aes_(fill=~region,alpha=~alpha)) + 
          geom_path(data=wrld_simpl_df, aes_(~long, ~lat, group=~group, fill=NULL), color="grey10", size=0.2) +
          scale_alpha_continuous(range=range(x$alpha)) +
          scale_fill_manual(values=plotstyle(levels(x$region)), labels=attr(x,"legend_text")) +
-         guides(fill=guide_legend(title="Region (number of cluster)",nrow=2), alpha=FALSE) +
+         guides(fill=guide_legend(title="Region (number of cluster)",nrow=2), alpha="none") +
          theme_linedraw() + 
          theme(aspect.ratio=0.6, legend.position=c(0.01,0.01), legend.justification = c(0,0), legend.background = element_rect(color = "black", fill = "white", size = 1, linetype = "solid")) 
   return(map)
