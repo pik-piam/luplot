@@ -1,8 +1,8 @@
 Package: luplot
 Type: Package
 Title: Landuse Plot Library
-Version: 3.52.1
-Date: 2022-02-15
+Version: 3.52.2
+Date: 2022-04-04
 Authors@R: c(person("Benjamin Leon", "Bodirsky", email = "bodirsky@pik-potsdam.de", role = c("aut","cre")),
              person("Jan Philipp", "Dietrich", email = "dietrich@pik-potsdam.de", role = "aut"),
 			 person("Michael", "Krause", email = "krause@pik-potsdam.de", role = "aut"),

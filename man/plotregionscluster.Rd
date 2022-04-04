@@ -14,7 +14,7 @@ is the name of the region and \code{cluster} is the number of the cluster.}
 Function to plot world map showing world regions and cluster.
 }
 \examples{
-  x <- paste(rep(paste0("REG",1:5),each=12000),rep(1:25,each=2400),sep=".")[1:59199]
+x <- paste(rep(paste0("REG", 1:5), each = 12000), rep(1:25, each = 2400), sep = ".")[1:59199]
   plotregionscluster(x)
 }
 \seealso{
