@@ -12,6 +12,7 @@
 #' @param bins number of bins in histogram
 #' @param fontLabel font size R2-MAE label
 #' @param folder path in which to save the plots. if "." is used, it is saved in the current working directory.
+#' @param breaks breaks of the legend. It can be a vector, waiver()=the ones from the transformation, NULL for no breaks
 #' @author Edna Molina Bacca
 #' @importFrom grDevices colorRampPalette
 #' @importFrom ggplot2 ggplot aes_ xlim ylim scale_fill_gradientn coord_fixed geom_abline geom_vline geom_hline
@@ -24,7 +25,12 @@
 #' x <- plotCorrHist2D(x, y, folder = ".")
 #' }
 #'
-plotCorrHist2D <- function(x, y, title = NULL, xlab = "x", ylab = "y", bins = 40, folder = NULL, fontLabel = 5.5) {
+plotCorrHist2D <- function(x, y, title = NULL, xlab = "x", ylab = "y", bins = 40, folder = NULL, fontLabel = 5.5, breaks=waiver()) {
+
+
+  getNames(x)<-gsub(x=getNames(x),pattern="\\.",replacement="_")
+  getNames(y)<-gsub(x=getNames(y),pattern="\\.",replacement="_")
+
 
   if (!all(getCells(x) == getCells(y))) stop("Data sets don't have the same regional resolution")
   years <- if (!is.null(intersect(getYears(x), getYears(y)))) intersect(getYears(x, as.integer = TRUE),
@@ -54,11 +60,11 @@ plotCorrHist2D <- function(x, y, title = NULL, xlab = "x", ylab = "y", bins = 40
       limMin <- min(min(data[, ValueX]), min(data[, ValueY]))
       limMax <- max(min(data[, ValueX]), max(data[, ValueY]))
 
-      limx <- c(limMin - 0.5, limMax + 5)
-      limy <- c(limMin - 0.5, limMax + 5)
+      limx <- c(limMin -limMax/10, limMax + limMax/10 )
+      limy <- c(limMin -limMax/10, limMax + limMax/10 )
 
-      labelX <- round(max(limx) * 2 / 4, 0)
-      labelY <- round(max(limy) * 1 / 4, 0)
+      labelX <- (max(limx) * 1 / 5)
+      labelY <- (max(limy) * 5 / 6)
 
       year <- as.character(ye)
 
@@ -75,7 +81,7 @@ plotCorrHist2D <- function(x, y, title = NULL, xlab = "x", ylab = "y", bins = 40
       plots[[tag]] <- plots[[tag]] + geom_bin2d(bins = bins) + coord_fixed(ratio = 1) +
                       geom_abline(intercept = 0, slope = 1) + geom_vline(xintercept = 0) + geom_hline(yintercept = 0)
       plots[[tag]] <- plots[[tag]] + labs(x = xlab, y = ylab, title = paste0(title, " ", "(", na, "-", year, ")")) +
-                      scale_fill_gradientn(colours = r)
+                      scale_fill_gradientn(colours = r,trans="log",breaks=breaks)
       plots[[tag]] <- plots[[tag]] + theme(axis.text.x = element_text(color = "grey20", size = 18),
                                        axis.title.x = element_text(color = "grey20", size = 18),
                                        axis.text.y = element_text(color = "grey20", size = 18),
@@ -87,10 +93,10 @@ plotCorrHist2D <- function(x, y, title = NULL, xlab = "x", ylab = "y", bins = 40
 
       plots[[tag]] <- plots[[tag]] + annotate("text", size = fontLabel, x = labelX, y = labelY,
                                               label = paste0("R2 = ", R2))
-      plots[[tag]] <- plots[[tag]] + annotate("text", size = fontLabel, x = labelX, y = labelY - labelY / 5,
+      plots[[tag]] <- plots[[tag]] + annotate("text", size = fontLabel, x = labelX, y = labelY - labelY /10,
                                               label = paste0("MAE = ", mae))
-      plots[[tag]] <- plots[[tag]] + scale_x_continuous(trans = "pseudo_log", limits = limx) +
-                                     scale_y_continuous(trans = "pseudo_log", limits = limy)
+      plots[[tag]] <- plots[[tag]] + scale_x_continuous(limits = limx) +
+                                     scale_y_continuous(limits = limy)
 
       if (!is.null(folder)) {
 
