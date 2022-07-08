@@ -25,7 +25,7 @@ plotregionscluster <- function(x) {
     # convert cluster column to integers
     x$cluster <- as.factor(x$cluster)
 
-    z <- data.frame(reg = sub("\\..*$", "", levels(x$cluster)),
+    z <- data.frame(reg = as.factor(sub("\\..*$", "", levels(x$cluster))), 
                     cluster = as.numeric(sub("^.*\\.", "", levels(x$cluster))))
     ncluster <- NULL
     for (r in levels(z$reg)) {

@@ -1,8 +1,8 @@
 Package: luplot
 Type: Package
 Title: Landuse Plot Library
-Version: 3.52.3
-Date: 2022-04-12
+Version: 3.52.4
+Date: 2022-07-08
 Authors@R: c(person("Benjamin Leon", "Bodirsky", email = "bodirsky@pik-potsdam.de", role = c("aut","cre")),
              person("Jan Philipp", "Dietrich", email = "dietrich@pik-potsdam.de", role = "aut"),
 			 person("Michael", "Krause", email = "krause@pik-potsdam.de", role = "aut"),
@@ -40,6 +40,6 @@ Imports:
 License: LGPL-3 | file LICENSE
 LazyData: no
 Encoding: UTF-8
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.0
 Suggests: 
     covr
