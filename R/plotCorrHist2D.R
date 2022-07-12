@@ -72,7 +72,8 @@ plotCorrHist2D <- function(x, y, title = NULL, xlab = "x", ylab = "y", bins = 40
       R2 <- round(cor(data[, ValueX], data[, ValueY])^2, 3)
       mae <- qualityMeasure(pd = data[, ValueX], od = data[, ValueY], measures = "MAE", p_value = FALSE)
       will <- qualityMeasure(pd = data[, ValueX], od = data[, ValueY], measures = "Willmott refined", p_value = FALSE)
-      All <- t(c(year, R2, mae, will))
+      bias <- sum(data[, ValueX]-data[, ValueY])/length(data[, ValueX])
+      All <- t(c(year, R2, mae, will,bias))
 
       corr <- rbind(corr, All)
       tag <- paste0(na, "-", year)
