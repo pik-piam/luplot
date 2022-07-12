@@ -43,7 +43,7 @@ plotCorrHist2D <- function(x, y, title = NULL, xlab = "x", ylab = "y", bins = 40
   plotMagpie <- reshape(plotMagpie, direction = "wide", idvar = c("Cell", "Region", "Year"), timevar = "Data1")
 
   plots <- list()
-  corr <- c("Year", "R2", "MAE", "Willmott refined")
+  corr <- c("Year", "R2", "MAE", "Willmott refined","Bias")
 
   rf <- colorRampPalette(rev(brewer.pal(11, "Spectral")))
   r <- rf(32) # color palette
