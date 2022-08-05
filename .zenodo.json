@@ -1,6 +1,6 @@
 {
   "title": "luplot: Landuse Plot Library",
-  "version": "3.54.1",
+  "version": "3.54.2",
   "description": "<p>Some useful functions to plot data such as a map plot function for\n    MAgPIE objects.<\/p>",
   "creators": [
     {

@@ -4,8 +4,8 @@
 #'
 #' @export
 #'
-#' @param x First data set (x axis) (predicted) as magpie object with one or more items in 3rd dimension
-#' @param y Second data set (y axis) (observed) as magpie object with one or more items in 3rd dimension
+#' @param x First data set (x axis) (observed) as magpie object with one or more items in 3rd dimension
+#' @param y Second data set (y axis) (predicted) as magpie object with one or more items in 3rd dimension
 #' @param title title of plot
 #' @param xlab x axis title
 #' @param ylab y axis title
@@ -71,11 +71,11 @@ plotCorrHist2D <- function(x, y, title = NULL, xlab = "x", ylab = "y", bins = 40
 
 
       R2 <- round(cor(data[, ValueX], data[, ValueY])^2, 3)
-      mae <- qualityMeasure(pd = data[, ValueX], od = data[, ValueY], measures = "MAE", p_value = FALSE)
-      will <- qualityMeasure(pd = data[, ValueX], od = data[, ValueY], measures = "Willmott refined", p_value = FALSE)
-      relative_error<-(data[, ValueX] - data[, ValueY])/data[, ValueY]
-      relative_error[!is.finite(relative_error)]<-NaN
-      bias <- sum(relative_error*100,na.rm = TRUE) / length(data[, ValueX])
+      mae <- qualityMeasure(pd = data[, ValueY], od = data[, ValueX], measures = "MAE", p_value = FALSE)
+      will <- qualityMeasure(pd = data[, ValueY], od = data[, ValueX], measures = "Willmott refined", p_value = FALSE)
+      relative_error<-(data[, ValueY] - data[, ValueX])/data[, ValueX]
+      relative_error[!is.finite(relative_error)]<-NA
+      bias <- sum(relative_error*100,na.rm = TRUE) / length(relative_error[is.finite(relative_error)])
       All <- t(c(year, R2, mae, will, bias))
 
       corr <- rbind(corr, All)
@@ -100,7 +100,7 @@ plotCorrHist2D <- function(x, y, title = NULL, xlab = "x", ylab = "y", bins = 40
       plots[[tag]] <- plots[[tag]] + annotate("text", size = fontLabel, x = labelX, y = labelY - labelY / 10,
                                               label = paste0("MAE = ", mae))
       plots[[tag]] <- plots[[tag]] + scale_x_continuous(limits = limx) +
-                                     scale_y_continuous(limits = limy)+coord_flip()
+                                     scale_y_continuous(limits = limy)
 
       if (!is.null(folder)) {
 
