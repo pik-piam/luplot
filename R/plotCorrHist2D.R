@@ -4,8 +4,8 @@
 #'
 #' @export
 #'
-#' @param x First data set (x axis) as magpie object with one or more items in 3rd dimension
-#' @param y Second data set (y axis) as magpie object with one or more items in 3rd dimension
+#' @param x First data set (x axis) (predicted) as magpie object with one or more items in 3rd dimension
+#' @param y Second data set (y axis) (observed) as magpie object with one or more items in 3rd dimension
 #' @param title title of plot
 #' @param xlab x axis title
 #' @param ylab y axis title
@@ -73,7 +73,7 @@ plotCorrHist2D <- function(x, y, title = NULL, xlab = "x", ylab = "y", bins = 40
       R2 <- round(cor(data[, ValueX], data[, ValueY])^2, 3)
       mae <- qualityMeasure(pd = data[, ValueX], od = data[, ValueY], measures = "MAE", p_value = FALSE)
       will <- qualityMeasure(pd = data[, ValueX], od = data[, ValueY], measures = "Willmott refined", p_value = FALSE)
-      bias <- sum(data[, ValueX] - data[, ValueY]) / length(data[, ValueX])
+      bias <- sum((data[, ValueX] - data[, ValueY])/data[, ValueY]) / length(data[, ValueX])
       All <- t(c(year, R2, mae, will, bias))
 
       corr <- rbind(corr, All)
@@ -98,7 +98,7 @@ plotCorrHist2D <- function(x, y, title = NULL, xlab = "x", ylab = "y", bins = 40
       plots[[tag]] <- plots[[tag]] + annotate("text", size = fontLabel, x = labelX, y = labelY - labelY / 10,
                                               label = paste0("MAE = ", mae))
       plots[[tag]] <- plots[[tag]] + scale_x_continuous(limits = limx) +
-                                     scale_y_continuous(limits = limy)
+                                     scale_y_continuous(limits = limy)+coord_flip()
 
       if (!is.null(folder)) {
 
