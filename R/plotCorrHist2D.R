@@ -12,7 +12,7 @@
 #' @param bins number of bins in histogram
 #' @param folder path in which to save the plots. if "." is used, it is saved in the current working directory.
 #' @param file name of file
-#' @param fontLabel font size R2-MAE label
+#' @param fontLabel font size r2-MAE label
 #' @param breaks breaks of the legend. It can be a vector, waiver()=the ones from the transformation, NULL for no breaks
 #' @author Edna Molina Bacca
 #' @importFrom grDevices colorRampPalette
@@ -26,7 +26,8 @@
 #' x <- plotCorrHist2D(x, y, folder = ".")
 #' }
 #'
-plotCorrHist2D <- function(x, y, title = NULL, xlab = "x", ylab = "y", bins = 40, folder = NULL, file = "",  fontLabel = 5.5, breaks = waiver()) {
+plotCorrHist2D <- function(x, y, title = NULL, xlab = "x", ylab = "y", bins = 40,
+                           folder = NULL, file = "",  fontLabel = 5.5, breaks = waiver()) {
 
 
   getNames(x) <- gsub(x = getNames(x), pattern = "\\.", replacement = "_")
@@ -35,76 +36,80 @@ plotCorrHist2D <- function(x, y, title = NULL, xlab = "x", ylab = "y", bins = 40
 
   if (!all(getCells(x) == getCells(y))) stop("Data sets don't have the same regional resolution")
   years <- if (!is.null(intersect(getYears(x), getYears(y)))) intersect(getYears(x, as.integer = TRUE),
-                         getYears(y, as.integer = TRUE)) else stop("No common years between data sets")
+                                                                        getYears(y, as.integer = TRUE)) else
+                                                                          stop("No common years between data sets")
   names <- if (!is.null(intersect(getNames(x), getNames(y)))) intersect(getNames(x),
-                         getNames(y)) else stop("No common items between data sets")
+                                                                        getNames(y)) else
+                                                                          stop("No common items between data sets")
 
   plotMagpie <- as.ggplot(mbind(setNames(x[, years, names], paste0(getNames(x), "_x")),
-            setNames(y[, years, names], paste0(getNames(x), "_y"))))[, c("Cell", "Region", "Year", "Data1", "Value")]
+                                setNames(y[, years, names],
+                                         paste0(getNames(x), "_y"))))[, c("Cell", "Region", "Year", "Data1", "Value")]
   plotMagpie <- reshape(plotMagpie, direction = "wide", idvar = c("Cell", "Region", "Year"), timevar = "Data1")
 
   plots <- list()
-  corr <- c("Year", "R2", "MAE", "Willmott refined", "Bias")
+  corr <- c("Year", "r2", "MAE", "Willmott refined", "Bias")
 
-  rf <- colorRampPalette(rev(brewer.pal(11, "Spectral")))
+  rf <- colorRampPalette(rev(brewer.pal(11, "RdYlBu")))
   r <- rf(32) # color palette
 
   for (na in names) {
-  for (ye in years) {
+    for (ye in years) {
 
 
       data <- plotMagpie[plotMagpie$Year == ye, ]
 
-      ValueX <- as.character(paste0("Value.", na, "_x"))
-      ValueY <- as.character(paste0("Value.", na, "_y"))
+      valueX <- as.character(paste0("Value.", na, "_x"))
+      valueY <- as.character(paste0("Value.", na, "_y"))
 
-      limMin <- min(min(data[, ValueX]), min(data[, ValueY]))
-      limMax <- max(min(data[, ValueX]), max(data[, ValueY]))
+      limMin <- min(min(data[, valueX]), min(data[, valueY]))
+      limMax <- max(min(data[, valueX]), max(data[, valueY]))
 
       limx <- c(limMin - limMax / 10, limMax + limMax / 10)
       limy <- c(limMin - limMax / 10, limMax + limMax / 10)
 
-      labelX <- (max(limx) * 1 / 5)
-      labelY <- (max(limy) * 5 / 6)
+      labelX <- (limMax + limMax / 10)
+      labelY <- (limMax + limMax / 10)
+      labelY2 <- limMax
 
       year <- as.character(ye)
 
 
-      R2 <- round(cor(data[, ValueX], data[, ValueY])^2, 3)
-      mae <- qualityMeasure(pd = data[, ValueY], od = data[, ValueX], measures = "MAE", p_value = FALSE)
-      will <- qualityMeasure(pd = data[, ValueY], od = data[, ValueX], measures = "Willmott refined", p_value = FALSE)
-      relative_error<-(data[, ValueY] - data[, ValueX])/data[, ValueX]
-      relative_error[!is.finite(relative_error)]<-NA
-      bias <- sum(relative_error*100,na.rm = TRUE) / length(relative_error[is.finite(relative_error)])
-      All <- t(c(year, R2, mae, will, bias))
+      r2 <- round(cor(data[, valueX], data[, valueY])^2, 3)
+      mae <- qualityMeasure(pd = data[, valueY], od = data[, valueX], measures = "MAE", p_value = FALSE)
+      will <- qualityMeasure(pd = data[, valueY], od = data[, valueX], measures = "Willmott refined", p_value = FALSE)
+      relativeError <- (data[, valueY] - data[, valueX]) / data[, valueX]
+      relativeError[!is.finite(relativeError)] <- NA
+      bias <- sum(relativeError * 100, na.rm = TRUE) / length(relativeError[is.finite(relativeError)])
+      all <- t(c(year, r2, mae, will, bias))
 
-      corr <- rbind(corr, All)
+      corr <- rbind(corr, all)
       tag <- paste0(na, "-", year)
 
-      plots[[tag]] <- ggplot(data, aes_string(x = ValueX, y = ValueY)) + theme_bw()
+      plots[[tag]] <- ggplot(data, aes_string(x = valueX, y = valueY)) + theme_bw()
       plots[[tag]] <- plots[[tag]] + geom_bin2d(bins = bins) + coord_fixed(ratio = 1) +
-                      geom_abline(intercept = 0, slope = 1) + geom_vline(xintercept = 0) + geom_hline(yintercept = 0)
+        geom_abline(intercept = 0, slope = 1) + geom_vline(xintercept = 0) + geom_hline(yintercept = 0)
       plots[[tag]] <- plots[[tag]] + labs(x = xlab, y = ylab, title = paste0(title, " ", "(", na, "-", year, ")")) +
-                      scale_fill_gradientn(colours = r, trans = "log", breaks = breaks)
+        scale_fill_gradientn(colours = r, trans = "log", breaks = breaks)
       plots[[tag]] <- plots[[tag]] + theme(axis.text.x = element_text(color = "grey20", size = 18),
-                                       axis.title.x = element_text(color = "grey20", size = 18),
-                                       axis.text.y = element_text(color = "grey20", size = 18),
-                                       axis.title.y = element_text(color = "grey20", size = 18),
-                                       plot.title = element_text(size = 20, face = "bold"),
-                                       legend.text = element_text(size = 16),
-                                       legend.title = element_text(size = 17),
-                                       legend.background = element_blank())
+                                           axis.title.x = element_text(color = "grey20", size = 18),
+                                           axis.text.y = element_text(color = "grey20", size = 18),
+                                           axis.title.y = element_text(color = "grey20", size = 18),
+                                           plot.title = element_text(size = 20, face = "bold"),
+                                           legend.text = element_text(size = 16),
+                                           legend.title = element_text(size = 17),
+                                           legend.background = element_blank())
 
-      plots[[tag]] <- plots[[tag]] + annotate("text", size = fontLabel, x = labelX, y = labelY,
-                                              label = paste0("R2 = ", R2))
-      plots[[tag]] <- plots[[tag]] + annotate("text", size = fontLabel, x = labelX, y = labelY - labelY / 10,
-                                              label = paste0("MAE = ", mae))
+      plots[[tag]] <- plots[[tag]] + annotate("label", size = fontLabel, x = labelX, y = labelY,
+                                              label = paste0("R2 = ", r2), hjust = 1)
+      plots[[tag]] <- plots[[tag]] + annotate("label", size = fontLabel, x = labelX, y = labelY2,
+                                              label = paste0("MAE = ", mae), hjust = 1)
       plots[[tag]] <- plots[[tag]] + scale_x_continuous(limits = limx) +
-                                     scale_y_continuous(limits = limy)
+        scale_y_continuous(limits = limy)
 
       if (!is.null(folder)) {
 
-      if (folder != "." && !dir.exists(folder)) dir.create(folder)
+        if (folder != "." && !dir.exists(folder)) dir.create(folder)
 
         png(filename = (paste0(folder, "/", file, "_", tag, ".png")), width = 600,
             height = 600)
