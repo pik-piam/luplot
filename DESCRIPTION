@@ -21,21 +21,21 @@ Description: Some useful functions to plot data such as a map plot
 License: LGPL-3 | file LICENSE
 URL: https://github.com/pik-piam/luplot
 Depends:
-    magclass,
-    R(>= 2.15.1)
+    R (>= 2.15.1),
+    magclass
 Imports:
+    RColorBrewer,
     data.table,
     dplyr,
     fields,
     ggplot2,
-    graphics,
     grDevices,
+    graphics,
     luscale,
     lusweave,
     magpiesets,
     mip,
     quitte,
-    RColorBrewer,
     reshape2,
     rworldmap,
     sp,
