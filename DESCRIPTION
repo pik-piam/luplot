@@ -1,8 +1,8 @@
 Type: Package
 Package: luplot
 Title: Landuse Plot Library
-Version: 3.54.3
-Date: 2023-02-13
+Version: 3.54.4
+Date: 2023-03-09
 Authors@R: c(
     person("Benjamin Leon", "Bodirsky", , "bodirsky@pik-potsdam.de", role = c("aut", "cre")),
     person("Jan Philipp", "Dietrich", , "dietrich@pik-potsdam.de", role = "aut"),
@@ -19,6 +19,7 @@ Maintainer: Benjamin Bodirsky <bodirsky@pik-potsdam.de>
 Description: Some useful functions to plot data such as a map plot
     function for MAgPIE objects.
 License: LGPL-3 | file LICENSE
+URL: https://github.com/pik-piam/luplot
 Depends:
     magclass,
     R(>= 2.15.1)
