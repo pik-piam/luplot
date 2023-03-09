@@ -27,7 +27,6 @@ Imports:
     reshape2,
     ggplot2,
     dplyr,
-    Hmisc,
     graphics,
     magpiesets,
     grDevices,
