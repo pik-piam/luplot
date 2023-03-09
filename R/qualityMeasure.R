@@ -31,7 +31,6 @@
 #' @export
 #' @importFrom stats weighted.mean cor cor.test 
 #' @importFrom graphics axis polygon
-#' @importFrom Hmisc rcorr
 #' 
 
 

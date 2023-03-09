@@ -1,45 +1,47 @@
-Package: luplot
 Type: Package
+Package: luplot
 Title: Landuse Plot Library
-Version: 3.54.3
-Date: 2023-02-13
-Authors@R: c(person("Benjamin Leon", "Bodirsky", email = "bodirsky@pik-potsdam.de", role = c("aut","cre")),
-             person("Jan Philipp", "Dietrich", email = "dietrich@pik-potsdam.de", role = "aut"),
-			 person("Michael", "Krause", email = "krause@pik-potsdam.de", role = "aut"),
-			 person("Miodrag", "Stevanovic", email = "miodrag@pik-potsdam.de", role = "aut"),
-			 person("Florian", "Humpenoeder", email = "humpenoeder@pik-potsdam.de", role = "aut"),
-		     person("Isabelle", "Weindl", email = "weindl@pik-potsdam.de", role = "aut"),
-			 person("Lavinia", "Baumstark", email = "baumstark@pik-potsdam.de",role = "aut"), 
-		     person("David", "Klein", email = "klein@pik-potsdam.de",role = "aut"),
-			 person("Susanne", "Rolinski", email="rolinski@pik-potsdam.de",role = "aut"),
-			 person("Xiaoxi", "Wang", email="wang@pik-potsdam.de",role = "aut"))
+Version: 3.54.4
+Date: 2023-03-09
+Authors@R: c(
+    person("Benjamin Leon", "Bodirsky", , "bodirsky@pik-potsdam.de", role = c("aut", "cre")),
+    person("Jan Philipp", "Dietrich", , "dietrich@pik-potsdam.de", role = "aut"),
+    person("Michael", "Krause", , "krause@pik-potsdam.de", role = "aut"),
+    person("Miodrag", "Stevanovic", , "miodrag@pik-potsdam.de", role = "aut"),
+    person("Florian", "Humpenoeder", , "humpenoeder@pik-potsdam.de", role = "aut"),
+    person("Isabelle", "Weindl", , "weindl@pik-potsdam.de", role = "aut"),
+    person("Lavinia", "Baumstark", , "baumstark@pik-potsdam.de", role = "aut"),
+    person("David", "Klein", , "klein@pik-potsdam.de", role = "aut"),
+    person("Susanne", "Rolinski", , "rolinski@pik-potsdam.de", role = "aut"),
+    person("Xiaoxi", "Wang", , "wang@pik-potsdam.de", role = "aut")
+  )
 Maintainer: Benjamin Bodirsky <bodirsky@pik-potsdam.de>
-Description: Some useful functions to plot data such as a map plot function for
-    MAgPIE objects.
+Description: Some useful functions to plot data such as a map plot
+    function for MAgPIE objects.
+License: LGPL-3 | file LICENSE
+URL: https://github.com/pik-piam/luplot
 Depends:
-    R(>= 2.15.1),
+    R (>= 2.15.1),
     magclass
 Imports:
-    quitte,
-    rworldmap,
-    fields,
-    luscale,
-    reshape2,
-    ggplot2,
+    RColorBrewer,
+    data.table,
     dplyr,
-    Hmisc,
-    graphics,
-    magpiesets,
+    fields,
+    ggplot2,
     grDevices,
+    graphics,
+    luscale,
+    lusweave,
+    magpiesets,
     mip,
-    xml2,
-	  lusweave,
-  	RColorBrewer,
-  	sp,
-  	data.table
-License: LGPL-3 | file LICENSE
-LazyData: no
-Encoding: UTF-8
-RoxygenNote: 7.2.3
+    quitte,
+    reshape2,
+    rworldmap,
+    sp,
+    xml2
 Suggests: 
     covr
+Encoding: UTF-8
+LazyData: no
+RoxygenNote: 7.2.3

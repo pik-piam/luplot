@@ -30,7 +30,6 @@
 #' as.ggplot(prices)}
 #' @export
 #' @importFrom magclass fulldim collapseNames getRegions as.data.frame
-#' @importFrom Hmisc capitalize
 #' @importFrom reshape2 melt
 
 as.ggplot <- function(x,scenario="default",asDate=T,rev=F,useDimNames=FALSE) {
@@ -55,7 +54,10 @@ as.ggplot <- function(x,scenario="default",asDate=T,rev=F,useDimNames=FALSE) {
   } else {
     scenario_order <- getNames(x,dim=1)
     region_order <- getRegions(x)
-    data_dims <- capitalize(names(fulldim(x)[[2]])[-1][-1])
+    data_dims <- names(fulldim(x)[[2]])[-1][-1]
+    # capitalize data_dims
+    capped <- grep("^[A-Z]", data_dims, invert = TRUE)
+    substr(data_dims[capped], 1, 1) <- toupper(substr(data_dims[capped], 1, 1))
   }
   if (rev) scenario_order <- rev(scenario_order)
   #check if coordinates exist as attribute in all MAgPIE objects
