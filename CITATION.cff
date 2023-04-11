@@ -1,0 +1,42 @@
+cff-version: 1.2.0
+message: If you use this software, please cite it using the metadata from this file.
+type: software
+title: 'luplot: Landuse Plot Library'
+version: 3.54.4.9001
+date-released: '2023-04-11'
+abstract: Some useful functions to plot data such as a map plot function for MAgPIE
+  objects.
+authors:
+- family-names: Bodirsky
+  given-names: Benjamin Leon
+  email: bodirsky@pik-potsdam.de
+- family-names: Dietrich
+  given-names: Jan Philipp
+  email: dietrich@pik-potsdam.de
+- family-names: Krause
+  given-names: Michael
+  email: krause@pik-potsdam.de
+- family-names: Stevanovic
+  given-names: Miodrag
+  email: miodrag@pik-potsdam.de
+- family-names: Humpenoeder
+  given-names: Florian
+  email: humpenoeder@pik-potsdam.de
+- family-names: Weindl
+  given-names: Isabelle
+  email: weindl@pik-potsdam.de
+- family-names: Baumstark
+  given-names: Lavinia
+  email: baumstark@pik-potsdam.de
+- family-names: Klein
+  given-names: David
+  email: klein@pik-potsdam.de
+- family-names: Rolinski
+  given-names: Susanne
+  email: rolinski@pik-potsdam.de
+- family-names: Wang
+  given-names: Xiaoxi
+  email: wang@pik-potsdam.de
+license: LGPL-3.0
+repository-code: https://github.com/pik-piam/luplot
+

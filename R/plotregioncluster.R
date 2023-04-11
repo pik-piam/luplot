@@ -1,7 +1,7 @@
 #' @title plotregionscluster
 #' @description Plots world map showing world regions and cluster.
 #'
-#' @param x data frame with 59199 or 67420 cells in MAgPIE order 
+#' @param x data frame with 59199 or 67420 cells in MAgPIE order
 #'          that contains regional and cluster information.
 #'          For 59199 cells: format of cluster dimension \code{region.cluster}
 #'          where \code{region} is the name of the region
@@ -67,33 +67,33 @@ plotregionscluster <- function(x, cells = "magpiecell") {
   }
 
   # extract world map
-  simpleWorldDataframe <- NULL
+  wrld_simpl_df <- NULL # nolint
   data("world", envir = environment(), package = "luplot")
 
   x <- .prepData(x, cells = cells)
 
-  # plot map of regions and clusters 
+  # plot map of regions and clusters
   map <- ggplot(x, aes_(~lon, ~lat)) +
-         geom_polygon(data = simpleWorldDataframe,
-                      aes_(~long, ~lat, group = ~group, fill = ~hole),
-                      fill = "lightgrey") +
-         geom_tile(aes_(fill = ~region, alpha = ~alpha)) +
-         geom_path(data = simpleWorldDataframe,
-                   aes_(~long, ~lat, group = ~group, fill = NULL),
-                   color = "grey10", size = 0.2) +
-         scale_alpha_continuous(range = range(x$alpha)) +
-         scale_fill_manual(values = mip::plotstyle(levels(x$region)),
-                           labels = attr(x, "legend_text")) +
-         guides(fill = guide_legend(title = "Region (number of cluster)",
-                                    nrow = 2),
-                alpha = "none") +
-         theme_linedraw() +
-         theme(aspect.ratio = 0.6,
-               legend.position = c(0.01, 0.01),
-               legend.justification = c(0, 0),
-               legend.background = element_rect(color = "black",
-                                                fill = "white",
-                                                linewidth = 1,
-                                                linetype = "solid"))
+    geom_polygon(data = wrld_simpl_df,
+                 aes_(~long, ~lat, group = ~group, fill = ~hole),
+                 fill = "lightgrey") +
+    geom_tile(aes_(fill = ~region, alpha = ~alpha)) +
+    geom_path(data = wrld_simpl_df,
+              aes_(~long, ~lat, group = ~group, fill = NULL),
+              color = "grey10", size = 0.2) +
+    scale_alpha_continuous(range = range(x$alpha)) +
+    scale_fill_manual(values = mip::plotstyle(levels(x$region)),
+                      labels = attr(x, "legend_text")) +
+    guides(fill = guide_legend(title = "Region (number of cluster)",
+                               nrow = 2),
+           alpha = "none") +
+    theme_linedraw() +
+    theme(aspect.ratio = 0.6,
+          legend.position = c(0.01, 0.01),
+          legend.justification = c(0, 0),
+          legend.background = element_rect(color = "black",
+                                           fill = "white",
+                                           linewidth = 1,
+                                           linetype = "solid"))
   return(map)
 }
