@@ -1,16 +1,16 @@
 #' performancePlot
-#' 
+#'
 #' Creates scatter plots for comparison of two data sets and reports various
 #' efficiency measures
-#' 
+#'
 #' The format of \code{pdata} and \code{odata} supported are \code{matrix},
 #' \code{magpie} and \code{vector}. Comparison of one \code{matrix} and one
 #' \code{magpie} object is allowed, but with the same row and column names. For
 #' the \code{magpie} objects it compares just the first year in the \code{year}
 #' dimension.  The comparison is performed columnwise.
-#' 
+#'
 #' @usage performancePlot(pdata, odata, fname=NULL, weight=NULL, measures=NULL,
-#' p_value=FALSE,qnt=NULL, w=8.5, h=11, mfrow=c(1,1), f_siz=0.6, na.rm=FALSE,
+#' p_value=FALSE,qnt=NULL, w=8.5, h=11, mfrow=c(1,1), f_siz=0.6, na.rm=FALSE, drange=NULL,
 #' ...)
 #' @param pdata Predicted data (e.g. MAgPIE output)
 #' @param odata Observed data (e.g. FAO)
@@ -39,23 +39,24 @@
 #' plots.
 #' @param na.rm If \code{TRUE}, removes all the \code{NA}, \code{NaN} or
 #' \code{Inf} values in both corresponding sets.
+#' @param drange The scale of the y-axis
 #' @param ... Additional arguments to be passed to the \code{plot()} function
 #' @importFrom graphics abline legend
 #' @importFrom stats quantile
 #' @author Misko Stevanovic,Xiaoxi Wang
 #' @seealso \code{\link{qualityMeasure}}
 #' @examples
-#' 
+#'
 #' 	\dontrun{
 #' 	performancePlot(magpie_prod,fao_prod,qnt="98%",mfrow=c(3,2),fname="test",
 #' 	measures=c("Willmott","Pearson"))
 #' 	performancePlot(magpie_prod,fao_prod)
-#' 	performancePlot(magpie_prod, fao_prod, fname="MAgPIE_FAO_production", 
+#' 	performancePlot(magpie_prod, fao_prod, fname="MAgPIE_FAO_production",
 #' 	w=8.5, h=12, mfrow=c(3,2), f_siz=0.7, na.rm=TRUE, xlab=paste("MAgPIE",
 #' 	"production, mio.ton DM"),ylab=paste("FAO","production, mio.ton DM")
-#' 	,col="blue")
+#' 	,col="blue", drange=500)
 #' 	}
-#' 
+#'
 ## Creates scatter plots for comparison of two data sets and reports various efficiency measures
 ## Version 1.01 - Misko Stevanovic
 ## 1.01: vector objects implemented and some bugs fixed
@@ -63,7 +64,7 @@
 #' @importFrom magclass is.magpie
 
 
-performancePlot <- function( 
+performancePlot <- function(
 							pdata,					    # predicted data (e.g. magpie)
 							odata,				      # observed data (e.g. fao)
 							fname=NULL,					# name of the pdf output file; also a switch between creating the pdf and plotting in the R environment
@@ -76,18 +77,19 @@ performancePlot <- function(
 							mfrow=c(1,1),				# splits the plotting screen
 							f_siz=0.6,					# the font size on the graph
 							na.rm=FALSE,				# removes corresponding rows in both datasets if at least one is NA, NaN or Inf
+							drange=NULL,        # specifies the range of y axis
 							...)								# additional arguments to be passed to the plot() function
 							{
 
-   
-	# transforming the objects 
+
+	# transforming the objects
 	if(xor(is.vector(pdata), is.vector(pdata))){
 		stop("Both data objects have to be vectors!")
 	}
-	
+
 	if(is.vector(pdata) & is.vector(odata)) vec <- TRUE
 	else vec <- FALSE
-	
+
   tmp <- list(pdata, odata)
   for(i in 1:length(tmp)){
     if(is.magpie(tmp[[i]])){
@@ -98,26 +100,26 @@ performancePlot <- function(
   pdata <- tmp[[1]]
   odata <- tmp[[2]]
   rm(tmp)
-  
+
 	if(!vec){
 		if(all(dimnames(pdata)[[2]] != dimnames(odata)[[2]])){
 			stop("Column names for both datasets must be the same!")
 		}
 	}
-	
-	## create plotting environment	
+
+	## create plotting environment
 	if(!is.null(fname)){
 		pdf(file=ifelse(TRUE, paste(fname,".pdf",sep=""), paste("name","%0.3d.pdf",sep="")), width=w, height=h, onefile=TRUE)
 	}
 	par(mfrow=mfrow)
-	
+
 	## data preparation and plotting
 	if(vec){
 		cmp.names <- ""
 	}
 	else cmp.names <- dimnames(pdata)[[2]]
 	for(cx in cmp.names){
-		if(vec){ 
+		if(vec){
 			pd <- pdata
 			od <- odata
 		}
@@ -125,7 +127,7 @@ performancePlot <- function(
 			pd <- pdata[,cx]
 			od <- odata[,cx]
 		}
-		
+
 		if(all(is.na(pd)) | all(is.na(od)) | all(is.infinite(pd)) | all(is.infinite(od))){
 			print(paste("Vector",cx,"has all the NA or Inf values. This data vector will not be plotted."))
 			next
@@ -139,26 +141,28 @@ performancePlot <- function(
 				od <- od[-na_omit]
 			}
 		}
-		
+
 		if(is.null(weight))	wt <- rep(1,length(od))
 		else	wt <- weight[names(od),cx]
-			
-		drange <- max(range(pd),range(od))
-		drange <- drange+0.3*drange
-		
+
+		if (is.null(drange)){
+		  drange <- max(range(pd),range(od))
+	  	drange <- drange+0.3*drange
+		}
+
 		## Plot
 		if(vec) plot(od,pd,xlim=c(0,drange),ylim=c(0,drange),...)
     else plot(od,pd,xlim=c(0,drange),ylim=c(0,drange),main=paste(cx),...)
-				
+
 		if(!is.null(qnt)){
-			quant <- which( pd >= quantile(pd, probs=seq(0,1,0.01))[qnt] | od >= quantile(od,probs=seq(0,1,0.01))[qnt])	
+			quant <- which( pd >= quantile(pd, probs=seq(0,1,0.01))[qnt] | od >= quantile(od,probs=seq(0,1,0.01))[qnt])
 			if( (length(names(pd)[quant])!=0 | length(names(od)[quant])!=0) | (length(names(pd)[quant])!=NA | length(names(od)[quant])!=NA) & !all(pd==0) & !all(od==0)){
 				text(pd[quant],od[quant],labels=names(pd)[quant],pos=4,cex=f_siz)
 			}
 		}
-		
+
 		abline(0,1)
-		
+
 		if(!is.null(measures)){
 			indices <- qualityMeasure(pd, od, wt, measures,p_value=p_value)
 			ind_box <- NULL
