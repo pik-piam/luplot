@@ -9,9 +9,6 @@
 #' the \code{magpie} objects it compares just the first year in the \code{year}
 #' dimension.  The comparison is performed columnwise.
 #'
-#' @usage performancePlot(pdata, odata, fname=NULL, weight=NULL, measures=NULL,
-#' p_value=FALSE,qnt=NULL, w=8.5, h=11, mfrow=c(1,1), f_siz=0.6, na.rm=FALSE, drange=NULL,
-#' ...)
 #' @param pdata Predicted data (e.g. MAgPIE output)
 #' @param odata Observed data (e.g. FAO)
 #' @param fname Name of the pdf output file. If the \code{fname} is

@@ -4,9 +4,22 @@
 \alias{performancePlot}
 \title{performancePlot}
 \usage{
-performancePlot(pdata, odata, fname=NULL, weight=NULL, measures=NULL,
-p_value=FALSE,qnt=NULL, w=8.5, h=11, mfrow=c(1,1), f_siz=0.6, na.rm=FALSE, drange=NULL,
-...)
+performancePlot(
+  pdata,
+  odata,
+  fname = NULL,
+  weight = NULL,
+  measures = NULL,
+  p_value = FALSE,
+  qnt = NULL,
+  w = 8.5,
+  h = 11,
+  mfrow = c(1, 1),
+  f_siz = 0.6,
+  na.rm = FALSE,
+  drange = NULL,
+  ...
+)
 }
 \arguments{
 \item{pdata}{Predicted data (e.g. MAgPIE output)}
