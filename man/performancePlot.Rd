@@ -4,9 +4,22 @@
 \alias{performancePlot}
 \title{performancePlot}
 \usage{
-performancePlot(pdata, odata, fname=NULL, weight=NULL, measures=NULL,
-p_value=FALSE,qnt=NULL, w=8.5, h=11, mfrow=c(1,1), f_siz=0.6, na.rm=FALSE,
-...)
+performancePlot(
+  pdata,
+  odata,
+  fname = NULL,
+  weight = NULL,
+  measures = NULL,
+  p_value = FALSE,
+  qnt = NULL,
+  w = 8.5,
+  h = 11,
+  mfrow = c(1, 1),
+  f_siz = 0.6,
+  na.rm = FALSE,
+  drange = NULL,
+  ...
+)
 }
 \arguments{
 \item{pdata}{Predicted data (e.g. MAgPIE output)}
@@ -48,6 +61,8 @@ plots.}
 \item{na.rm}{If \code{TRUE}, removes all the \code{NA}, \code{NaN} or
 \code{Inf} values in both corresponding sets.}
 
+\item{drange}{The scale of the y-axis}
+
 \item{...}{Additional arguments to be passed to the \code{plot()} function}
 }
 \description{
@@ -67,10 +82,10 @@ dimension.  The comparison is performed columnwise.
 	performancePlot(magpie_prod,fao_prod,qnt="98\%",mfrow=c(3,2),fname="test",
 	measures=c("Willmott","Pearson"))
 	performancePlot(magpie_prod,fao_prod)
-	performancePlot(magpie_prod, fao_prod, fname="MAgPIE_FAO_production", 
+	performancePlot(magpie_prod, fao_prod, fname="MAgPIE_FAO_production",
 	w=8.5, h=12, mfrow=c(3,2), f_siz=0.7, na.rm=TRUE, xlab=paste("MAgPIE",
 	"production, mio.ton DM"),ylab=paste("FAO","production, mio.ton DM")
-	,col="blue")
+	,col="blue", drange=500)
 	}
 
 }
