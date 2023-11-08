@@ -2,20 +2,27 @@
 % Please edit documentation in R/plotregioncluster.R
 \name{plotregionscluster}
 \alias{plotregionscluster}
-\title{Plots world map with regions and clusters}
+\title{plotregionscluster}
 \usage{
-plotregionscluster(x)
+plotregionscluster(x, cells = "magpiecell")
 }
 \arguments{
-\item{x}{a vector with 59199 cells in MAgPIE order and format \code{region.cluster} where \code{region}
-is the name of the region and \code{cluster} is the number of the cluster.}
+\item{x}{data frame with 59199 or 67420 cells in MAgPIE order
+that contains regional and cluster information.
+For 59199 cells: format of cluster dimension \code{region.cluster}
+where \code{region} is the name of the region
+and \code{cluster} is the number of the cluster.
+For 67420 cells: cell dimension with coordinate and country name information
+and format of cluster dimension \code{region.cluster}}
+
+\item{cells}{"magpiecell" for 59199 cells and "lpjcell" for 67420 cells}
 }
 \description{
-Function to plot world map showing world regions and cluster.
+Plots world map showing world regions and cluster.
 }
 \examples{
 x <- paste(rep(paste0("REG", 1:5), each = 12000), rep(1:25, each = 2400), sep = ".")[1:59199]
-  plotregionscluster(x)
+plotregionscluster(x)
 }
 \seealso{
 \code{\link{plotspam}}
