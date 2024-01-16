@@ -14,6 +14,13 @@ objects
 3.11\cr Date: \tab 2017-02-06\cr License: \tab LGPL-3\cr LazyLoad: \tab
 yes\cr }
 }
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/pik-piam/luplot}
+}
+
+}
 \author{
 Benjamin Bodirsky, Jan Philipp Dietrich, Michael Krause, Miodrag
 Stevanovic, Florian Humpenoeder

@@ -1,6 +1,6 @@
 # Landuse Plot Library
 
-R package **luplot**, version **3.56.0**
+R package **luplot**, version **3.56.1**
 
 [![CRAN status](https://www.r-pkg.org/badges/version/luplot)](https://cran.r-project.org/package=luplot)  [![R build status](https://github.com/pik-piam/luplot/workflows/check/badge.svg)](https://github.com/pik-piam/luplot/actions) [![codecov](https://codecov.io/gh/pik-piam/luplot/branch/master/graph/badge.svg)](https://app.codecov.io/gh/pik-piam/luplot) [![r-universe](https://pik-piam.r-universe.dev/badges/luplot)](https://pik-piam.r-universe.dev/builds)
 
@@ -39,7 +39,7 @@ In case of questions / problems please contact Benjamin Bodirsky <bodirsky@pik-p
 
 To cite package **luplot** in publications use:
 
-Bodirsky B, Dietrich J, Krause M, Stevanovic M, Humpenoeder F, Weindl I, Baumstark L, Klein D, Rolinski S, Wang X (2023). _luplot: Landuse Plot Library_. R package version 3.56.0, <https://github.com/pik-piam/luplot>.
+Bodirsky B, Dietrich J, Krause M, Stevanovic M, Humpenoeder F, Weindl I, Baumstark L, Klein D, Rolinski S, Wang X (2024). _luplot: Landuse Plot Library_. R package version 3.56.1, <https://github.com/pik-piam/luplot>.
 
 A BibTeX entry for LaTeX users is
 
@@ -47,8 +47,8 @@ A BibTeX entry for LaTeX users is
 @Manual{,
   title = {luplot: Landuse Plot Library},
   author = {Benjamin Leon Bodirsky and Jan Philipp Dietrich and Michael Krause and Miodrag Stevanovic and Florian Humpenoeder and Isabelle Weindl and Lavinia Baumstark and David Klein and Susanne Rolinski and Xiaoxi Wang},
-  year = {2023},
-  note = {R package version 3.56.0},
+  year = {2024},
+  note = {R package version 3.56.1},
   url = {https://github.com/pik-piam/luplot},
 }
 ```
