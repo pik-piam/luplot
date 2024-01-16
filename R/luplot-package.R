@@ -1,5 +1,3 @@
-
-
 #' Landuse Plot Library
 #' 
 #' Some useful functions to plot data such as a map plot function for MAgPIE
@@ -11,12 +9,11 @@
 #' 
 #' @name luplot-package
 #' @aliases luplot-package luplot
-#' @docType package
 #' @author Benjamin Bodirsky, Jan Philipp Dietrich, Michael Krause, Miodrag
 #' Stevanovic, Florian Humpenoeder
 #' 
 #' Maintainer: Benjamin Bodirsky <bodirsky@@pik-potsdam.de>
-NULL
+"_PACKAGE"
 
 
 
