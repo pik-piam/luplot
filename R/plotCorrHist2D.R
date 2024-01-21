@@ -10,16 +10,26 @@
 #' @param xlab x axis title
 #' @param ylab y axis title
 #' @param bins number of bins in histogram
-#' @param folder path in which to save the plots. if "." is used, it is saved in the current working directory.
+#' @param folder path in which to save the plots. if "." is used, it is saved 
+#' in the current working directory. If NULL, no plots are saved.
 #' @param file name of file
-#' @param fontLabel font size r2-MAE label
+#' @param statFont font size r2-MAE label
 #' @param breaks breaks of the legend. It can be a vector, waiver()=the ones from the transformation, NULL for no breaks
+#' @param nrows number of rows in pdf file where plots are printed
+#' @param ncols number of columns in pdf file where plots are printed
+#' @param axisFont Font size of text of axis of the correlation plot
+#' @param axisTitleFont Font size of title of axis of the correlation plot
+#' @param TitleFontSize Font size of title of correlation plot
+#' @param legendTitleFont Font size of the title of the legend
+#' @param legendTextFont Font size of legend
 #' @author Edna Molina Bacca
 #' @importFrom grDevices colorRampPalette
 #' @importFrom ggplot2 ggplot aes_ xlim ylim scale_fill_gradientn coord_fixed geom_abline geom_vline geom_hline
 #' labs theme geom_bin2d annotate
 #' @importFrom RColorBrewer brewer.pal
 #' @importFrom magclass setNames
+#' @importFrom gridExtra marrangeGrob
+#' @importFrom utils write.csv2
 #'
 #' @examples
 #' \dontrun{
@@ -27,7 +37,8 @@
 #' }
 #'
 plotCorrHist2D <- function(x, y, title = NULL, xlab = "x", ylab = "y", bins = 40,
-                           folder = NULL, file = "",  fontLabel = 5.5, breaks = waiver()) {
+                           folder = NULL, file = "", breaks = waiver(),nrows=2, ncols=2, axisFont=13,
+                           axisTitleFont=13,TitleFontSize=15,legendTitleFont=12,legendTextFont=10,statFont=4) {
 
 
   getNames(x) <- gsub(x = getNames(x), pattern = "\\.", replacement = "_")
@@ -42,7 +53,7 @@ plotCorrHist2D <- function(x, y, title = NULL, xlab = "x", ylab = "y", bins = 40
                                                                         getNames(y)) else
                                                                           stop("No common items between data sets")
 
-  plotMagpie <- as.ggplot(mbind(setNames(x[, years, names], paste0(getNames(x), "_x")),
+  plotMagpie <- luplot::as.ggplot(mbind(setNames(x[, years, names], paste0(getNames(x), "_x")),
                                 setNames(y[, years, names],
                                          paste0(getNames(x), "_y"))))[, c("Cell", "Region", "Year", "Data1", "Value")]
   plotMagpie <- reshape(plotMagpie, direction = "wide", idvar = c("Cell", "Region", "Year"), timevar = "Data1")
@@ -65,19 +76,19 @@ plotCorrHist2D <- function(x, y, title = NULL, xlab = "x", ylab = "y", bins = 40
       limMin <- min(min(data[, valueX]), min(data[, valueY]))
       limMax <- max(min(data[, valueX]), max(data[, valueY]))
 
-      limx <- c(limMin - limMax / 10, limMax + limMax / 10)
-      limy <- c(limMin - limMax / 10, limMax + limMax / 10)
+      limx <- c(limMin - limMax / 5, limMax + limMax / 5)
+      limy <- c(limMin - limMax / 5, limMax + limMax / 5)
 
-      labelX <- (limMax + limMax / 10)
-      labelY <- (limMax + limMax / 10)
+      labelX <- (limMax + limMax / 5)
+      labelY <- (limMax + limMax / 5)
       labelY2 <- limMax
 
       year <- as.character(ye)
 
 
       r2 <- round(cor(data[, valueX], data[, valueY])^2, 3)
-      mae <- qualityMeasure(pd = data[, valueY], od = data[, valueX], measures = "MAE", p_value = FALSE)
-      will <- qualityMeasure(pd = data[, valueY], od = data[, valueX], measures = "Willmott refined", p_value = FALSE)
+      mae <- luplot::qualityMeasure(pd = data[, valueY], od = data[, valueX], measures = "MAE", p_value = FALSE)
+      will <- luplot::qualityMeasure(pd = data[, valueY], od = data[, valueX], measures = "Willmott refined", p_value = FALSE)
       relativeError <- (data[, valueY] - data[, valueX]) / data[, valueX]
       relativeError[!is.finite(relativeError)] <- NA
       bias <- sum(relativeError * 100, na.rm = TRUE) / length(relativeError[is.finite(relativeError)])
@@ -91,36 +102,32 @@ plotCorrHist2D <- function(x, y, title = NULL, xlab = "x", ylab = "y", bins = 40
         geom_abline(intercept = 0, slope = 1) + geom_vline(xintercept = 0) + geom_hline(yintercept = 0)
       plots[[tag]] <- plots[[tag]] + labs(x = xlab, y = ylab, title = paste0(title, " ", "(", na, "-", year, ")")) +
         scale_fill_gradientn(colours = r, trans = "log", breaks = breaks)
-      plots[[tag]] <- plots[[tag]] + theme(axis.text.x = element_text(color = "grey20", size = 18),
-                                           axis.title.x = element_text(color = "grey20", size = 18),
-                                           axis.text.y = element_text(color = "grey20", size = 18),
-                                           axis.title.y = element_text(color = "grey20", size = 18),
-                                           plot.title = element_text(size = 20, face = "bold"),
-                                           legend.text = element_text(size = 16),
-                                           legend.title = element_text(size = 17),
+      plots[[tag]] <- plots[[tag]] + theme(axis.text.x = element_text(color = "grey20", size = axisFont),
+                                           axis.title.x = element_text(color = "grey20", size = axisTitleFont),
+                                           axis.text.y = element_text(color = "grey20", size = axisFont),
+                                           axis.title.y = element_text(color = "grey20", size = axisTitleFont),
+                                           plot.title = element_text(size = TitleFontSize, face = "bold"),
+                                           legend.text = element_text(size = legendTextFont),
+                                           legend.title = element_text(size = legendTitleFont),
                                            legend.background = element_blank())
 
-      plots[[tag]] <- plots[[tag]] + annotate("label", size = fontLabel, x = labelX, y = labelY,
+      plots[[tag]] <- plots[[tag]] + annotate("label", size = statFont, x = labelX, y = labelY,
                                               label = paste0("R2 = ", r2), hjust = 1)
-      plots[[tag]] <- plots[[tag]] + annotate("label", size = fontLabel, x = labelX, y = labelY2,
+      plots[[tag]] <- plots[[tag]] + annotate("label", size = statFont, x = labelX, y = labelY2,
                                               label = paste0("MAE = ", mae), hjust = 1)
       plots[[tag]] <- plots[[tag]] + scale_x_continuous(limits = limx) +
         scale_y_continuous(limits = limy)
-
-      if (!is.null(folder)) {
-
-        if (folder != "." && !dir.exists(folder)) dir.create(folder)
-
-        png(filename = (paste0(folder, "/", file, "_", tag, ".png")), width = 600,
-            height = 600)
-        print(plots[[tag]])
-        dev.off()
-
-
-      }
     }
 
   }
+  
+    if (!is.null(folder)) {
+      if (folder != "." && !dir.exists(folder)) dir.create(folder)
+      if(is.null(file)) stop("Please, write a file name")
+      ml<-gridExtra::marrangeGrob(plots, nrow = 2, ncol = 2)
+      ggsave(paste0(folder,file,".pdf"), ml)
+      write.csv2(corr,paste0(folder, file, "_stats.csv"))
+         }
 
-  return(list(plots, corr))
+  return(plots)
 }

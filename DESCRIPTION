@@ -1,8 +1,8 @@
 Type: Package
 Package: luplot
 Title: Landuse Plot Library
-Version: 3.56.1
-Date: 2024-01-16
+Version: 3.57.0
+Date: 2024-01-21
 Authors@R: c(
     person("Benjamin Leon", "Bodirsky", , "bodirsky@pik-potsdam.de", role = c("aut", "cre")),
     person("Jan Philipp", "Dietrich", , "dietrich@pik-potsdam.de", role = "aut"),
@@ -39,7 +39,8 @@ Imports:
     reshape2,
     rworldmap,
     sp,
-    xml2
+    xml2,
+    gridExtra
 Suggests: 
     covr
 Encoding: UTF-8
