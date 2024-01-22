@@ -78,8 +78,8 @@ plotCorrHist2D <- function(x, y, title = NULL, xlab = "x", ylab = "y", bins = 40
       limMin <- min(min(data[, valueX]), min(data[, valueY]))
       limMax <- max(max(data[, valueX]), max(data[, valueY]))
 
-      limx1 <- if(is.null (limx)) c(limMin - limMax / 7, limMax + limMax / 7) else limx
-      limy1 <- if (is.null(limy)) c(limMin - limMax / 7, limMax + limMax / 7) else limy
+      limx1 <- if(is.null (limx)) c(limMin , limMax + limMax / 7) else limx
+      limy1 <- if (is.null(limy)) c(limMin , limMax + limMax / 7) else limy
 
       labelX <- limx1[2] - limx1[2] / 8
       labelY <- limMin + limMax / 4
