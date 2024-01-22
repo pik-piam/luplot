@@ -9,8 +9,8 @@
 #' @param title title of plot
 #' @param xlab x axis title
 #' @param ylab y axis title
-#' @param limx limits y axis 
-#' @param limy limits x axis 
+#' @param limx limits y axis (if NULL, fitting limits are calculated within the function)
+#' @param limy limits x axis (if NULL, fitting limits are calculated within the function)
 #' @param bins number of bins in histogram
 #' @param folder path in which to save the plots. if "." is used, it is saved 
 #' in the current working directory. If NULL, no plots are saved.
@@ -76,14 +76,15 @@ plotCorrHist2D <- function(x, y, title = NULL, xlab = "x", ylab = "y", bins = 40
       valueY <- as.character(paste0("Value.", na, "_y"))
 
       limMin <- min(min(data[, valueX]), min(data[, valueY]))
-      limMax <- max(min(data[, valueX]), max(data[, valueY]))
+      limMax <- max(max(data[, valueX]), max(data[, valueY]))
 
-      limx <- if(is.null (limx)) c(limMin - limMax / 5, limMax + limMax / 5) else limx
-      limy <- if (is.null(limy)) c(limMin - limMax / 5, limMax + limMax / 5) else limy
+      limx1 <- if(is.null (limx)) c(limMin - limMax / 7, limMax + limMax / 7) else limx
+      limy1 <- if (is.null(limy)) c(limMin - limMax / 7, limMax + limMax / 7) else limy
 
-      labelX <- (limMax + limMax / 5)
-      labelY <- (limMin)
-      labelY2 <- limMin + limMax / 5
+      labelX <- limx1[2] - limx1[2] / 8
+      labelY <- limMin + limMax / 4
+      labelY2 <- limMin + limMax / 10
+
 
       year <- as.character(ye)
 
@@ -117,10 +118,10 @@ plotCorrHist2D <- function(x, y, title = NULL, xlab = "x", ylab = "y", bins = 40
                                               label = paste0("R2 = ", r2), hjust = 1)
       plots[[tag]] <- plots[[tag]] + annotate("label", size = statFont, x = labelX, y = labelY2,
                                               label = paste0("MAE = ", mae), hjust = 1)
-      plots[[tag]] <- plots[[tag]] + scale_x_continuous(limits = limx) +
-        scale_y_continuous(limits = limy)
+      plots[[tag]] <- if (!is.null(limx)) plots[[tag]] + scale_x_continuous(limits = limx) else plots[[tag]] + scale_x_continuous(limits = limx1)
+      plots[[tag]] <- if (!is.null(limy)) plots[[tag]] + scale_y_continuous(limits = limy) else plots[[tag]] + scale_y_continuous(limits = limy1)
+      
     }
-
   }
   
     if (!is.null(folder)) {
