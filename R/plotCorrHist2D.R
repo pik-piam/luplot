@@ -9,6 +9,8 @@
 #' @param title title of plot
 #' @param xlab x axis title
 #' @param ylab y axis title
+#' @param limx limits y axis 
+#' @param limy limits x axis 
 #' @param bins number of bins in histogram
 #' @param folder path in which to save the plots. if "." is used, it is saved 
 #' in the current working directory. If NULL, no plots are saved.
@@ -36,7 +38,7 @@
 #' x <- plotCorrHist2D(x, y, folder = ".")
 #' }
 #'
-plotCorrHist2D <- function(x, y, title = NULL, xlab = "x", ylab = "y", bins = 40,
+plotCorrHist2D <- function(x, y, title = NULL, xlab = "x", ylab = "y", bins = 40, limx=NULL, limy=NULL,
                            folder = NULL, file = "", breaks = waiver(),nrows=2, ncols=2, axisFont=13,
                            axisTitleFont=13,TitleFontSize=15,legendTitleFont=12,legendTextFont=10,statFont=4) {
 
@@ -76,12 +78,12 @@ plotCorrHist2D <- function(x, y, title = NULL, xlab = "x", ylab = "y", bins = 40
       limMin <- min(min(data[, valueX]), min(data[, valueY]))
       limMax <- max(min(data[, valueX]), max(data[, valueY]))
 
-      limx <- c(limMin - limMax / 5, limMax + limMax / 5)
-      limy <- c(limMin - limMax / 5, limMax + limMax / 5)
+      limx <- if(is.null (limx)) c(limMin - limMax / 5, limMax + limMax / 5) else limx
+      limy <- if (is.null(limy)) c(limMin - limMax / 5, limMax + limMax / 5) else limy
 
       labelX <- (limMax + limMax / 5)
       labelY <- (limMin)
-      labelY2 <- limMax + limMax / 5
+      labelY2 <- limMin + limMax / 5
 
       year <- as.character(ye)
 
