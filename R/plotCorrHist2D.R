@@ -80,8 +80,8 @@ plotCorrHist2D <- function(x, y, title = NULL, xlab = "x", ylab = "y", bins = 40
       limy <- c(limMin - limMax / 5, limMax + limMax / 5)
 
       labelX <- (limMax + limMax / 5)
-      labelY <- (limMax + limMax / 5)
-      labelY2 <- limMax
+      labelY <- (limMin)
+      labelY2 <- limMax + limMax / 5
 
       year <- as.character(ye)
 
