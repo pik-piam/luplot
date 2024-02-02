@@ -64,7 +64,7 @@ plotCorrHist2D <- function(x, y, title = NULL, xlab = "x", ylab = "y", bins = 40
   plotMagpie <- reshape(plotMagpie, direction = "wide", idvar = c("Cell", "Region", "Year"), timevar = "Data1")
 
   plots <- list()
-  corr <- c("Year", "r2", "MAE", "Willmott refined", "Bias")
+  corr <- c("Year","Variable", "r2", "MAE", "Bias", "error per unit")
 
   rf <- colorRampPalette(rev(brewer.pal(11, "RdYlBu")))
   r <- rf(32) # color palette
@@ -94,11 +94,14 @@ plotCorrHist2D <- function(x, y, title = NULL, xlab = "x", ylab = "y", bins = 40
 
       r2 <- round(cor(data[, valueX], data[, valueY])^2, 3)
       mae <- luplot::qualityMeasure(pd = data[, valueY], od = data[, valueX], measures = "MAE", p_value = FALSE)
-      will <- luplot::qualityMeasure(pd = data[, valueY], od = data[, valueX], measures = "Willmott refined", p_value = FALSE)
       relativeError <- (data[, valueY] - data[, valueX]) / data[, valueX]
       relativeError[!is.finite(relativeError)] <- NA
       bias <- sum(relativeError * 100, na.rm = TRUE) / length(relativeError[is.finite(relativeError)])
-      all <- t(c(year, r2, mae, will, bias))
+      absoluteError <- abs(data[, valueY] - data[, valueX])
+      error <- round(sum(absoluteError) / sum(data[, valueX]), 3)
+
+      all <- t(c(year,na, r2, mae, bias,error))
+  
 
       corr <- rbind(corr, all)
       tag <- paste0(na, "-", year)
@@ -118,9 +121,9 @@ plotCorrHist2D <- function(x, y, title = NULL, xlab = "x", ylab = "y", bins = 40
                                            legend.background = element_blank())
 
       plots[[tag]] <- if(stat) plots[[tag]] + annotate("label", size = statFont, x = labelX, y = labelY,
-                                              label = paste0("R2 = ", r2), hjust = 1)
+                                              label = paste0("R2 = ", r2), hjust = 1) else plots[[tag]]
       plots[[tag]] <- if(stat) plots[[tag]] + annotate("label", size = statFont, x = labelX, y = labelY2,
-                                              label = paste0("MAE = ", mae), hjust = 1)
+                                              label = paste0("MAE = ", mae), hjust = 1) else plots[[tag]]
       plots[[tag]] <- if (!is.null(limx)) plots[[tag]] + scale_x_continuous(limits = limx) else plots[[tag]] + scale_x_continuous(limits = limx1)
       plots[[tag]] <- if (!is.null(limy)) plots[[tag]] + scale_y_continuous(limits = limy) else plots[[tag]] + scale_y_continuous(limits = limy1)
       
