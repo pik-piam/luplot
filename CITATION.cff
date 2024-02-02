@@ -2,8 +2,8 @@ cff-version: 1.2.0
 message: If you use this software, please cite it using the metadata from this file.
 type: software
 title: 'luplot: Landuse Plot Library'
-version: 3.58.4
-date-released: '2024-01-22'
+version: 3.58.5
+date-released: '2024-02-02'
 abstract: Some useful functions to plot data such as a map plot function for MAgPIE
   objects.
 authors:

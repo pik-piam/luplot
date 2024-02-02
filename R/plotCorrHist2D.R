@@ -24,6 +24,8 @@
 #' @param TitleFontSize Font size of title of correlation plot
 #' @param legendTitleFont Font size of the title of the legend
 #' @param legendTextFont Font size of legend
+#' @param table Conditional to include table with statistics in the output. TRUE (includes it), FALSE (it doesn't)
+#' @param stat Conditional to include R2 and MAE on the fiure. TRUE (includes it), FALSE (it doesn't)
 #' @author Edna Molina Bacca
 #' @importFrom grDevices colorRampPalette
 #' @importFrom ggplot2 ggplot aes_ xlim ylim scale_fill_gradientn coord_fixed geom_abline geom_vline geom_hline
@@ -40,7 +42,8 @@
 #'
 plotCorrHist2D <- function(x, y, title = NULL, xlab = "x", ylab = "y", bins = 40, limx=NULL, limy=NULL,
                            folder = NULL, file = "", breaks = waiver(),nrows=2, ncols=2, axisFont=13,
-                           axisTitleFont=13,TitleFontSize=15,legendTitleFont=12,legendTextFont=10,statFont=4) {
+                           axisTitleFont=13,TitleFontSize=15,legendTitleFont=12,legendTextFont=10,
+                           statFont=4, table=FALSE, stat=TRUE) {
 
 
   getNames(x) <- gsub(x = getNames(x), pattern = "\\.", replacement = "_")
@@ -114,9 +117,9 @@ plotCorrHist2D <- function(x, y, title = NULL, xlab = "x", ylab = "y", bins = 40
                                            legend.title = element_text(size = legendTitleFont),
                                            legend.background = element_blank())
 
-      plots[[tag]] <- plots[[tag]] + annotate("label", size = statFont, x = labelX, y = labelY,
+      plots[[tag]] <- if(stat) plots[[tag]] + annotate("label", size = statFont, x = labelX, y = labelY,
                                               label = paste0("R2 = ", r2), hjust = 1)
-      plots[[tag]] <- plots[[tag]] + annotate("label", size = statFont, x = labelX, y = labelY2,
+      plots[[tag]] <- if(stat) plots[[tag]] + annotate("label", size = statFont, x = labelX, y = labelY2,
                                               label = paste0("MAE = ", mae), hjust = 1)
       plots[[tag]] <- if (!is.null(limx)) plots[[tag]] + scale_x_continuous(limits = limx) else plots[[tag]] + scale_x_continuous(limits = limx1)
       plots[[tag]] <- if (!is.null(limy)) plots[[tag]] + scale_y_continuous(limits = limy) else plots[[tag]] + scale_y_continuous(limits = limy1)
@@ -132,5 +135,6 @@ plotCorrHist2D <- function(x, y, title = NULL, xlab = "x", ylab = "y", bins = 40
       write.csv2(corr,paste0(folder, file, "_stats.csv"))
          }
 
-  return(plots)
+  out <- if (table) list(plots,corr) else plots
+  return(out)
 }
