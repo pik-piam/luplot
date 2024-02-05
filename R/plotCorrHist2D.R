@@ -26,6 +26,7 @@
 #' @param legendTextFont Font size of legend
 #' @param table Conditional to include table with statistics in the output. TRUE (includes it), FALSE (it doesn't)
 #' @param stat Conditional to include R2 and MAE on the fiure. TRUE (includes it), FALSE (it doesn't)
+#' @param palette palette selection for heatd maps based on the RColorBrewer library
 #' @author Edna Molina Bacca
 #' @importFrom grDevices colorRampPalette
 #' @importFrom ggplot2 ggplot aes_ xlim ylim scale_fill_gradientn coord_fixed geom_abline geom_vline geom_hline
