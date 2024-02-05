@@ -27,6 +27,7 @@
 #' @param table Conditional to include table with statistics in the output. TRUE (includes it), FALSE (it doesn't)
 #' @param stat Conditional to include R2 and MAE on the fiure. TRUE (includes it), FALSE (it doesn't)
 #' @param palette palette selection for heatd maps based on the RColorBrewer library
+#' @param tag for multiple items in the second and third dimensions of the magpie object, should the title include "year", "item", "year-item".
 #' @author Edna Molina Bacca
 #' @importFrom grDevices colorRampPalette
 #' @importFrom ggplot2 ggplot aes_ xlim ylim scale_fill_gradientn coord_fixed geom_abline geom_vline geom_hline
@@ -44,7 +45,7 @@
 plotCorrHist2D <- function(x, y, title = NULL, xlab = "x", ylab = "y", bins = 40, limx=NULL, limy=NULL,
                            folder = NULL, file = "", breaks = waiver(),nrows=2, ncols=2, axisFont=13,
                            axisTitleFont=13,TitleFontSize=15,legendTitleFont=12,legendTextFont=10,
-                           statFont=4, table=FALSE, stat=TRUE,palette="RdYlBu") {
+                           statFont=4, table=FALSE, stat=TRUE,palette="RdYlBu",tag=NULL) {
 
 
   getNames(x) <- gsub(x = getNames(x), pattern = "\\.", replacement = "_")
@@ -65,7 +66,7 @@ plotCorrHist2D <- function(x, y, title = NULL, xlab = "x", ylab = "y", bins = 40
   plotMagpie <- reshape(plotMagpie, direction = "wide", idvar = c("Cell", "Region", "Year"), timevar = "Data1")
 
   plots <- list()
-  corr <- c("Year","Variable", "r2", "MAE", "Bias", "error per unit")
+  corr <- c("Year","Variable", "r2", "MAE", "Bias", "MAEU")
 
   rf <- colorRampPalette(rev(brewer.pal(11, palette)))
   r <- rf(32) # color palette
@@ -105,14 +106,15 @@ plotCorrHist2D <- function(x, y, title = NULL, xlab = "x", ylab = "y", bins = 40
   
 
       corr <- rbind(corr, all)
-      tag <- paste0(na, "-", year)
+      tag1 <- paste0(na, "-", year)
+      tagTitle <- if(tag=="year-item") tag1 else if(tag=="year") year else if(tag=="item") na
 
-      plots[[tag]] <- ggplot(data, aes_string(x = valueX, y = valueY)) + theme_bw()
-      plots[[tag]] <- plots[[tag]] + geom_bin2d(bins = bins) + coord_fixed(ratio = 1) +
+      plots[[tag1]] <- ggplot(data, aes_string(x = valueX, y = valueY)) + theme_bw()
+      plots[[tag1]] <- plots[[tag1]] + geom_bin2d(bins = bins) + coord_fixed(ratio = 1) +
         geom_abline(intercept = 0, slope = 1) + geom_vline(xintercept = 0) + geom_hline(yintercept = 0)
-      plots[[tag]] <- plots[[tag]] + labs(x = xlab, y = ylab, title = paste0(title, " ", "(", na, "-", year, ")")) +
+      plots[[tag1]] <- plots[[tag1]] + labs(x = xlab, y = ylab, title = paste0(title, " ", "(", tagTitle, ")")) +
         scale_fill_gradientn(colours = r, trans = "log", breaks = breaks)
-      plots[[tag]] <- plots[[tag]] + theme(axis.text.x = element_text(color = "grey20", size = axisFont),
+      plots[[tag1]] <- plots[[tag1]] + theme(axis.text.x = element_text(color = "grey20", size = axisFont),
                                            axis.title.x = element_text(color = "grey20", size = axisTitleFont),
                                            axis.text.y = element_text(color = "grey20", size = axisFont),
                                            axis.title.y = element_text(color = "grey20", size = axisTitleFont),
@@ -121,12 +123,12 @@ plotCorrHist2D <- function(x, y, title = NULL, xlab = "x", ylab = "y", bins = 40
                                            legend.title = element_text(size = legendTitleFont),
                                            legend.background = element_blank())
 
-      plots[[tag]] <- if(stat) plots[[tag]] + annotate("label", size = statFont, x = labelX, y = labelY,
-                                              label = paste0("R2 = ", r2), hjust = 1) else plots[[tag]]
-      plots[[tag]] <- if(stat) plots[[tag]] + annotate("label", size = statFont, x = labelX, y = labelY2,
-                                              label = paste0("MAE = ", mae), hjust = 1) else plots[[tag]]
-      plots[[tag]] <- if (!is.null(limx)) plots[[tag]] + scale_x_continuous(limits = limx) else plots[[tag]] + scale_x_continuous(limits = limx1)
-      plots[[tag]] <- if (!is.null(limy)) plots[[tag]] + scale_y_continuous(limits = limy) else plots[[tag]] + scale_y_continuous(limits = limy1)
+      plots[[tag1]] <- if(stat) plots[[tag1]] + annotate("label", size = statFont, x = labelX, y = labelY,
+                                              label = paste0("R2 = ", r2), hjust = 1) else plots[[tag1]]
+      plots[[tag1]] <- if(stat) plots[[tag1]] + annotate("label", size = statFont, x = labelX, y = labelY2,
+                                              label = paste0("MAE = ", mae), hjust = 1) else plots[[tag1]]
+      plots[[tag1]] <- if (!is.null(limx)) plots[[tag1]] + scale_x_continuous(limits = limx) else plots[[tag1]] + scale_x_continuous(limits = limx1)
+      plots[[tag1]] <- if (!is.null(limy)) plots[[tag1]] + scale_y_continuous(limits = limy) else plots[[tag1]] + scale_y_continuous(limits = limy1)
       
     }
   }
