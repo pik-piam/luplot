@@ -43,7 +43,7 @@
 plotCorrHist2D <- function(x, y, title = NULL, xlab = "x", ylab = "y", bins = 40, limx=NULL, limy=NULL,
                            folder = NULL, file = "", breaks = waiver(),nrows=2, ncols=2, axisFont=13,
                            axisTitleFont=13,TitleFontSize=15,legendTitleFont=12,legendTextFont=10,
-                           statFont=4, table=FALSE, stat=TRUE) {
+                           statFont=4, table=FALSE, stat=TRUE,palette="RdYlBu") {
 
 
   getNames(x) <- gsub(x = getNames(x), pattern = "\\.", replacement = "_")
@@ -66,7 +66,7 @@ plotCorrHist2D <- function(x, y, title = NULL, xlab = "x", ylab = "y", bins = 40
   plots <- list()
   corr <- c("Year","Variable", "r2", "MAE", "Bias", "error per unit")
 
-  rf <- colorRampPalette(rev(brewer.pal(11, "RdYlBu")))
+  rf <- colorRampPalette(rev(brewer.pal(11, palette)))
   r <- rf(32) # color palette
 
   for (na in names) {
