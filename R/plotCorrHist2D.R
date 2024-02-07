@@ -66,7 +66,7 @@ plotCorrHist2D <- function(x, y, title = NULL, xlab = "x", ylab = "y", bins = 40
   plotMagpie <- reshape(plotMagpie, direction = "wide", idvar = c("Cell", "Region", "Year"), timevar = "Data1")
 
   plots <- list()
-  corr <- c("Year","Variable", "r2", "MAE", "Bias", "MAEU")
+  corr <- c("Year","Variable", "r2", "MAE", "MPE", "MAPE")
 
   rf <- colorRampPalette(rev(brewer.pal(11, palette)))
   r <- rf(32) # color palette
@@ -96,13 +96,18 @@ plotCorrHist2D <- function(x, y, title = NULL, xlab = "x", ylab = "y", bins = 40
 
       r2 <- round(cor(data[, valueX], data[, valueY])^2, 3)
       mae <- luplot::qualityMeasure(pd = data[, valueY], od = data[, valueX], measures = "MAE", p_value = FALSE)
+      
       relativeError <- (data[, valueY] - data[, valueX]) / data[, valueX]
       relativeError[!is.finite(relativeError)] <- NA
-      bias <- sum(relativeError * 100, na.rm = TRUE) / length(relativeError[is.finite(relativeError)])
-      absoluteError <- abs(data[, valueY] - data[, valueX])
-      error <- round(sum(absoluteError) / sum(data[, valueX]), 3)
+      relativeError[data[, valueX] < 0.01 * max(data[, valueX])] <- NA      
+      mpe <- sum(relativeError * 100, na.rm = TRUE) / length(relativeError[is.finite(relativeError)])
+      
+      absoluteError <- abs((data[, valueY] - data[, valueX]) / data[, valueX])
+      absoluteError[!is.finite(absoluteError)] <- NA
+      absoluteError[data[, valueX] < 0.01 * max(data[, valueX])] <- NA
+      mape <- round(sum(absoluteError * 100, na.rm = TRUE) / length(absoluteError[is.finite(absoluteError)]), 3)
 
-      all <- t(c(year,na, r2, mae, bias,error))
+      all <- t(c(year,na, r2, mae, mpe, mape))
   
 
       corr <- rbind(corr, all)
