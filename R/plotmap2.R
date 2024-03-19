@@ -43,7 +43,7 @@
 #' @param facet_style style of facets, default or paper
 #' @param plot_height plot height in cm
 #' @param plot_width plot width in cm
-#' @author Florian Humpenoeder
+#' @author Florian Humpenoeder, David M Chen
 #' @seealso \code{\link{plotmap}}
 #' @examples
 #' # plotmap2(data)
@@ -52,6 +52,7 @@
 #' @importFrom ggplot2 ggplot aes_ geom_polygon scale_fill_manual waiver geom_raster scale_fill_gradient2 scale_fill_gradient theme coord_cartesian ggtitle element_rect element_line scale_x_continuous scale_y_continuous geom_path element_text element_blank guides guide_colorbar ggsave unit
 #' @importFrom grDevices colorRampPalette
 #' @importFrom utils head tail
+#' @importFrom mrcommons toolGetMappingCoord2Country
 
 
 plotmap2 <- function(data, file = NULL, title = "World map", legend_range =
@@ -93,12 +94,25 @@ plotmap2 <- function(data, file = NULL, title = "World map", legend_range =
       })
     }
     if (any(unlist(lapply(data, function(x) return(is.null(attr(x, "coordinates"))))))) {
+       if (length(getItems(data[[1]], dim = 1) == 67420)) {
+           mapping <- toolGetMappingCoord2Country()
+           mapping <- setNames(do.call(rbind.data.frame, strsplit(unlist(mapping[, "coords"]), '\\.')), 
+                               c('lon', 'lat'))
+           mapping <- apply(mapping, 2, function(y) as.numeric(gsub("p", "\\.", y)))
+           data <- lapply(data, function(x) {
+            attr(x, "coordinates") <-mapping
+            return(x)
+           }) 
+       } else if (length(getItems(data[[1]], dim = 1) == 59199)) { 
       data <- lapply(data, function(x) {
-        attr(x, "coordinates") <- getCoordinates(degree = TRUE)
-        return(x)
-      })
-      warning("Missing coordinates in attributes for at least one MAgPIE object. Added coordinates in default MAgPIE cell order.")
+       attr(x, "coordinates") <- getCoordinates(degree = TRUE)
+       return(x)
+      }) 
+      }
+     warning("Missing coordinates in attributes for at least one MAgPIE object. Added coordinates in default MAgPIE cell order.")
     }
+
+
     data <- as.ggplot(data, asDate = FALSE)
     if (legend_discrete) {
       if (is.null(legend_breaks)) {

@@ -89,5 +89,5 @@ Makes use of ggplot2 map plotting capabilites
 \code{\link{plotmap}}
 }
 \author{
-Florian Humpenoeder
+Florian Humpenoeder, David M Chen
 }

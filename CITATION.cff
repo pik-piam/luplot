@@ -2,8 +2,8 @@ cff-version: 1.2.0
 message: If you use this software, please cite it using the metadata from this file.
 type: software
 title: 'luplot: Landuse Plot Library'
-version: 3.61.0
-date-released: '2024-02-07'
+version: 3.61.1
+date-released: '2024-03-19'
 abstract: Some useful functions to plot data such as a map plot function for MAgPIE
   objects.
 authors:
@@ -37,6 +37,9 @@ authors:
 - family-names: Wang
   given-names: Xiaoxi
   email: wang@pik-potsdam.de
+- family-names: Chen
+  given-names: David
+  email: davidch@pik-potsdam.de
 license: LGPL-3.0
 repository-code: https://github.com/pik-piam/luplot
 
