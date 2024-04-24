@@ -24,6 +24,3 @@ Plots world map showing world regions and cluster.
 x <- paste(rep(paste0("REG", 1:5), each = 12000), rep(1:25, each = 2400), sep = ".")[1:59199]
 plotregionscluster(x)
 }
-\seealso{
-\code{\link{plotspam}}
-}

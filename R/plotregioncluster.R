@@ -9,7 +9,6 @@
 #'          For 67420 cells: cell dimension with coordinate and country name information
 #'          and format of cluster dimension \code{region.cluster}
 #' @param cells "magpiecell" for 59199 cells and "lpjcell" for 67420 cells
-#' @seealso \code{\link{plotspam}}
 #' @importFrom data.table data.table
 #' @importFrom ggplot2 scale_fill_manual theme_linedraw scale_alpha_continuous geom_tile
 #' @importFrom mip plotstyle
