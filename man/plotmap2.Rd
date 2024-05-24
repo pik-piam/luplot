@@ -85,9 +85,6 @@ Makes use of ggplot2 map plotting capabilites
 # plotmap2(data)
 #' #@importFrom  RColorBrewer
 }
-\seealso{
-\code{\link{plotmap}}
-}
 \author{
 Florian Humpenoeder, David M Chen
 }

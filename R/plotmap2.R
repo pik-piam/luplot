@@ -44,7 +44,6 @@
 #' @param plot_height plot height in cm
 #' @param plot_width plot width in cm
 #' @author Florian Humpenoeder, David M Chen
-#' @seealso \code{\link{plotmap}}
 #' @examples
 #' # plotmap2(data)
 #' #' #@importFrom  RColorBrewer
@@ -53,7 +52,7 @@
 #' scale_fill_gradient theme coord_cartesian ggtitle element_rect element_line scale_x_continuous scale_y_continuous
 #' geom_path element_text element_blank guides guide_colorbar ggsave unit
 #' @importFrom grDevices colorRampPalette
-#' @importFrom utils head tail
+#' @importFrom utils head tail data
 #' @importFrom mstools toolGetMappingCoord2Country
 
 

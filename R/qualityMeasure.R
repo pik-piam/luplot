@@ -18,7 +18,6 @@
 #' @return Returns a numeric vector with calculated measures. Names of vector
 #' elements are the measures applied.
 #' @author Misko Stevanovic,Xiaoxi Wang
-#' @seealso \code{\link{performancePlot}}
 #' @examples
 #' 
 #' \dontrun{

@@ -32,7 +32,7 @@ plotcountrymap(test[,"y2005",1])
 }
 }
 \seealso{
-\code{\link{magpie2map}},\code{\link{plotmap}},\code{\link{plotmap2}}
+\code{\link{plotmap2}}
 }
 \author{
 Benjamin Leon Bodirsky

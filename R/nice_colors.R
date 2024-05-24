@@ -15,7 +15,6 @@
 #' a reduction factor of existing brightness.
 #' @return Vector of Hexa-Format of colors.
 #' @author Benjamin Bodirsky
-#' @seealso \code{\link{scratch_plot}}
 #' @examples
 #' \dontrun{
 #' pie(1:12,col=nice_colors())
