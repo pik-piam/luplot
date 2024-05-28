@@ -9,8 +9,8 @@
 #' rescaled for fitting on portrait pages.
 #' 
 #' @usage
-#' swoutput(stream,data,unit="unit",plot=TRUE,table=TRUE,scenario_name="default",
-#' text_size=16,digits=0,plot_level=NULL,...)
+#' swoutput(stream,data,unit="unit",plot=TRUE,table=TRUE,scenarioName="default",
+#' textSize=16,digits=0,plotLevel=NULL,...)
 #' @param stream The \code{swStream} object to be modified
 #' @param data MAgPIE object or list of MAgPIE objects. For a list of MAgPIE
 #' objects the name of the list entry (has to be character) is used as scenario
@@ -22,11 +22,11 @@
 #' (\code{\link[luplot]{magpie2ggplot2}}) is added
 #' @param table TRUE or FALSE. If TRUE, LaTeX code for data table
 #' (\code{\link[xtable]{print.xtable}}) is added
-#' @param scenario_name Name of the scenario. Only used if data is not a list.
-#' @param text_size Size of text used in \code{\link[luplot]{magpie2ggplot2}}
+#' @param scenarioName Name of the scenario. Only used if data is not a list.
+#' @param textSize Size of text used in \code{\link[luplot]{magpie2ggplot2}}
 #' @param digits Number of digits for rounding. Used in
 #' \code{\link[xtable]{xtable}}
-#' @param plot_level NULL for all (default), reg or glo
+#' @param plotLevel NULL for all (default), reg or glo
 #' @param ... Further options passed to \code{\link[luplot]{magpie2ggplot2}} and
 #' \code{\link[xtable]{print.xtable}}
 #' @return No return value
@@ -45,20 +45,21 @@
 #' swoutput(sw,croparea(gdx),"mio. ha",scenario="test")
 #' swclose(sw)}
 #' 
-swoutput <- function(stream,data,unit="unit",plot=TRUE,table=TRUE,scenario_name="default",text_size=16,digits=0,plot_level=NULL,...) {
+swoutput <- function(stream, data, unit = "unit", plot = TRUE, table = TRUE,
+                     scenarioName = "default", textSize = 16, digits = 0, plotLevel = NULL, ...) {
   if (!is.list(data)) {
     temp <- data
     data <- list()
-    data[[scenario_name]] <- temp
+    data[[scenarioName]] <- temp
   }
-  if (is.null(plot_level)) ggdata <- data
-  else if (plot_level == "reg") {
+  if (is.null(plotLevel)) ggdata <- data
+  else if (plotLevel == "reg") {
     ggdata <- lapply(data,function(x) x[setdiff(getRegions(x),"GLO"),,])     
-  } else if (plot_level == "glo") {
-    plot_level <- "GLO"
-    ggdata <- lapply(data,function(x) x[plot_level,,])     
+  } else if (plotLevel == "glo") {
+    plotLevel <- "GLO"
+    ggdata <- lapply(data,function(x) x[plotLevel,,])     
   }
-  if (plot) swfigure(stream,print,magpie2ggplot2(data=ggdata,ylab=unit,text_size=text_size,...),sw_option="width=10")
+  if (plot) swfigure(stream,print,magpie2ggplot2(data=ggdata,ylab=unit,text_size=textSize,...),sw_option="width=10")
   if (table) {
     for (scenario in names(sapply(data, names))) {
 #       if (nyears(data[[scenario]]) > 12) {

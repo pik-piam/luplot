@@ -4,8 +4,8 @@
 \alias{swoutput}
 \title{swoutput}
 \usage{
-swoutput(stream,data,unit="unit",plot=TRUE,table=TRUE,scenario_name="default",
-text_size=16,digits=0,plot_level=NULL,...)
+swoutput(stream,data,unit="unit",plot=TRUE,table=TRUE,scenarioName="default",
+textSize=16,digits=0,plotLevel=NULL,...)
 }
 \arguments{
 \item{stream}{The \code{swStream} object to be modified}
@@ -24,14 +24,14 @@ name.}
 \item{table}{TRUE or FALSE. If TRUE, LaTeX code for data table
 (\code{\link[xtable]{print.xtable}}) is added}
 
-\item{scenario_name}{Name of the scenario. Only used if data is not a list.}
+\item{scenarioName}{Name of the scenario. Only used if data is not a list.}
 
-\item{text_size}{Size of text used in \code{\link[luplot]{magpie2ggplot2}}}
+\item{textSize}{Size of text used in \code{\link[luplot]{magpie2ggplot2}}}
 
 \item{digits}{Number of digits for rounding. Used in
 \code{\link[xtable]{xtable}}}
 
-\item{plot_level}{NULL for all (default), reg or glo}
+\item{plotLevel}{NULL for all (default), reg or glo}
 
 \item{...}{Further options passed to \code{\link[luplot]{magpie2ggplot2}} and
 \code{\link[xtable]{print.xtable}}}
