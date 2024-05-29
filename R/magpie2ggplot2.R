@@ -80,7 +80,6 @@
 #' @param ... Further options passed to as.ggplot
 #' @return ggplot2 object representing one or more MAgPIE objects.
 #' @author Florian Humpenoeder, David Klein
-#' @seealso \code{\link{scratch_plot},\link{histoplot},}
 #' @examples
 #' 
 #' \dontrun{
@@ -98,8 +97,9 @@
 #' @importFrom grDevices colorRampPalette
 #' @importFrom ggplot2 ggplot scale_y_discrete aes_string facet_grid facet_wrap geom_bar scale_fill_manual geom_area geom_line rel
 #' geom_point scale_color_manual geom_hline aes_ stat_summary ggtitle theme element_rect element_line element_text scale_alpha_discrete 
-#' element_blank coord_cartesian scale_x_date scale_x_continuous scale_x_discrete scale_y_date scale_y_continuous guides guide_legend ggsave 
+#' element_blank coord_cartesian scale_x_date scale_x_continuous scale_x_discrete scale_y_date scale_y_continuous guides guide_legend ggsave theme_bw
 #' @importFrom mip plotstyle
+#' @importFrom stats as.formula
 
 magpie2ggplot2 <- function(data,scenario="default",ylab="Value",title=NULL,xaxis="Year",yaxis="Value",facet_x="Region",facet_y=NULL,
                            geom="line",stack=F,color="Scenario",fill="Region",shape=NULL,linetype=NULL,alpha=NULL,labs=NULL,stat=NULL,

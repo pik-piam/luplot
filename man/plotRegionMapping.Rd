@@ -22,7 +22,7 @@ plotRegionMapping("../regionmapping.csv", col = NULL, mapTitle = "")
 }
 }
 \seealso{
-\code{\link{plotcountrymap}},\code{\link{plotmap}},\code{\link{plotmap2}}
+\code{\link{plotcountrymap}},\code{\link{plotmap2}}
 }
 \author{
 Jan Philipp Dietrich, Ewerton Araujo

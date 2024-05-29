@@ -6,8 +6,9 @@
 #' @param col color
 #' @param ... Further attributes such as color palette and map name
 #' @author Jan Philipp Dietrich, Ewerton Araujo
+#' @importFrom utils read.csv
 #' @seealso
-#' \code{\link{plotcountrymap}},\code{\link{plotmap}},\code{\link{plotmap2}}
+#' \code{\link{plotcountrymap}},\code{\link{plotmap2}}
 #' @examples
 #' \dontrun{
 #' plotRegionMapping("../regionmapping.csv", col = NULL, mapTitle = "")

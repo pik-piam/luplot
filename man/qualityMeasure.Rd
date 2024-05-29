@@ -40,9 +40,6 @@ qualityMeasure(pd,od)
 qualityMeasure(pd,od,measures=c("RMSE","Pearson","Willmott refined"))
 }
 }
-\seealso{
-\code{\link{performancePlot}}
-}
 \author{
 Misko Stevanovic,Xiaoxi Wang
 }

@@ -145,9 +145,6 @@ prices[["Scenario1"]] <- prices("Scenario1.gdx",crops=c("tece","maiz"))
 prices[["Scenario2"]] <- prices("Scenario2.gdx",crops=c("tece","maiz"))
 magpie2ggplot2(prices,ylab="US$/ton DM",title="Agricultural prices")}
 }
-\seealso{
-\code{\link{scratch_plot},\link{histoplot},}
-}
 \author{
 Florian Humpenoeder, David Klein
 }

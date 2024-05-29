@@ -13,8 +13,7 @@
 #' @param ... Further attributes which are passed on to the function
 #' mapCountryData of the package rworldmap
 #' @author Benjamin Leon Bodirsky
-#' @seealso
-#' \code{\link{magpie2map}},\code{\link{plotmap}},\code{\link{plotmap2}}
+#' @seealso \code{\link{plotmap2}}
 #' @examples
 #' \dontrun{
 #' data(population_magpie)

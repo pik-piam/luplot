@@ -31,9 +31,6 @@ Nice Color Schemes
 pie(1:12,col=nice_colors())
 }
 }
-\seealso{
-\code{\link{scratch_plot}}
-}
 \author{
 Benjamin Bodirsky
 }
