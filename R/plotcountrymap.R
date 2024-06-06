@@ -29,7 +29,6 @@ plotcountrymap<-function(x,hatching=FALSE,...) {
   if (! requireNamespace("rworldmap", quietly = TRUE)) {
     stop("Package 'rworldmap' must be installed to use 'luplot::plotcountrymap()'.", call. = FALSE)
   }
-  # require(methods)
   namedim<-getNames(x)
   if(is.null(namedim)){namedim=1}
   year<-getYears(x)
