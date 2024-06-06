@@ -23,11 +23,12 @@
 #' }
 #' @export
 #'@importFrom magclass getYears getRegions 
-#'@importFrom rworldmap joinCountryData2Map mapCountryData
 #'@importFrom utils methods
 
 plotcountrymap<-function(x,hatching=FALSE,...) {
- # require(methods)
+  if (! requireNamespace("rworldmap", quietly = TRUE)) {
+    stop("Package 'rworldmap' must be installed to use 'luplot::plotcountrymap()'.", call. = FALSE)
+  }
   namedim<-getNames(x)
   if(is.null(namedim)){namedim=1}
   year<-getYears(x)
@@ -45,14 +46,14 @@ plotcountrymap<-function(x,hatching=FALSE,...) {
     DF <- data.frame(country = countries,namedim = values,hatching=as.vector(x[,year,2]))
     dimnames(DF)[[2]][[2]] <- paste(namedim[1],substr(year,2,5))
     dimnames(DF)[[2]][[3]] <- paste(namedim[2],substr(year,2,5))
-    mapobject <- joinCountryData2Map(DF, joinCode = "ISO3",nameJoinColumn = "country")
-    mapCountryData(mapobject, nameColumnToPlot = dimnames(DF)[[2]][[2]],nameColumnToHatch=dimnames(DF)[[2]][[3]],...)
+    mapobject <- rworldmap::joinCountryData2Map(DF, joinCode = "ISO3",nameJoinColumn = "country")
+    rworldmap::mapCountryData(mapobject, nameColumnToPlot = dimnames(DF)[[2]][[2]],nameColumnToHatch=dimnames(DF)[[2]][[3]],...)
     
   } else{
     DF <- data.frame(country = countries,namedim = values)
     dimnames(DF)[[2]][[2]] <- paste(namedim,substr(year,2,5))
-    mapobject <- joinCountryData2Map(DF, joinCode = "ISO3",nameJoinColumn = "country")
-    mapCountryData(mapobject, nameColumnToPlot = dimnames(DF)[[2]][[2]],...)
+    mapobject <- rworldmap::joinCountryData2Map(DF, joinCode = "ISO3",nameJoinColumn = "country")
+    rworldmap::mapCountryData(mapobject, nameColumnToPlot = dimnames(DF)[[2]][[2]],...)
     
   }
 
