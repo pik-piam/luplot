@@ -83,9 +83,6 @@ plotKaya(kaya, region = "EUR", scenario = "SSP1")
 }
 
 }
-\seealso{
-\code{\link[magpie4]{kayaLaspeyres}}
-}
 \author{
 Debbora Leip
 }

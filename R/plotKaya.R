@@ -30,7 +30,6 @@
 #' @param filename If not NULL, the plot is saved as a png file with the provided filename. Default is NULL.
 #'
 #' @return The function returns a ggplot object.
-#' @seealso \code{\link[magpie4]{kayaLaspeyres}}
 #' @author Debbora Leip
 #' @examples
 #' \dontrun{
