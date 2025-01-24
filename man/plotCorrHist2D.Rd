@@ -20,14 +20,14 @@ plotCorrHist2D(
   ncols = 2,
   axisFont = 13,
   axisTitleFont = 13,
-  TitleFontSize = 15,
+  titleFontSize = 15,
   legendTitleFont = 12,
   legendTextFont = 10,
   statFont = 4,
   table = FALSE,
   stat = TRUE,
   palette = "RdYlBu",
-  tag = NULL
+  tag = "year-item"
 )
 }
 \arguments{
@@ -47,7 +47,7 @@ plotCorrHist2D(
 
 \item{limy}{limits x axis (if NULL, fitting limits are calculated within the function)}
 
-\item{folder}{path in which to save the plots. if "." is used, it is saved 
+\item{folder}{path in which to save the plots. if "." is used, it is saved
 in the current working directory. If NULL, no plots are saved.}
 
 \item{file}{name of file}
@@ -62,7 +62,7 @@ in the current working directory. If NULL, no plots are saved.}
 
 \item{axisTitleFont}{Font size of title of axis of the correlation plot}
 
-\item{TitleFontSize}{Font size of title of correlation plot}
+\item{titleFontSize}{Font size of title of correlation plot}
 
 \item{legendTitleFont}{Font size of the title of the legend}
 
@@ -76,7 +76,8 @@ in the current working directory. If NULL, no plots are saved.}
 
 \item{palette}{palette selection for heatd maps based on the RColorBrewer library}
 
-\item{tag}{for multiple items in the second and third dimensions of the magpie object, should the title include "year", "item", "year-item".}
+\item{tag}{for multiple items in the second and third dimensions of the magpie object,
+should the title include "year", "item", "year-item".}
 }
 \description{
 Plots 2D density plots to evaluate the relationship between two datasets.
