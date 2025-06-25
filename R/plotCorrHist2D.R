@@ -21,14 +21,14 @@
 #' @param ncols number of columns in pdf file where plots are printed
 #' @param axisFont Font size of text of axis of the correlation plot
 #' @param axisTitleFont Font size of title of axis of the correlation plot
-#' @param titleFontSize Font size of title of correlation plot
+#' @param TitleFontSize Font size of title of correlation plot
 #' @param legendTitleFont Font size of the title of the legend
 #' @param legendTextFont Font size of legend
 #' @param table Conditional to include table with statistics in the output. TRUE (includes it), FALSE (it doesn't)
 #' @param stat Conditional to include R2 and MAE on the fiure. TRUE (includes it), FALSE (it doesn't)
 #' @param palette palette selection for heatd maps based on the RColorBrewer library
 #' @param tag for multiple items in the second and third dimensions of the magpie object,
-#' should the title include "year", "item", "year-item".
+#' should the title include "year", "item", "year-item", "" if no subtitle is wanted.
 #' @author Edna Molina Bacca
 #' @importFrom grDevices colorRampPalette
 #' @importFrom ggplot2 ggplot aes_ xlim ylim scale_fill_gradientn coord_fixed geom_abline geom_vline geom_hline
@@ -45,7 +45,7 @@
 #'
 plotCorrHist2D <- function(x, y, title = NULL, xlab = "x", ylab = "y", bins = 40, limx = NULL, limy = NULL,
                            folder = NULL, file = "", breaks = waiver(), nrows = 2, ncols = 2, axisFont = 13,
-                           axisTitleFont = 13, titleFontSize = 15, legendTitleFont = 12, legendTextFont = 10,
+                           axisTitleFont = 13, TitleFontSize = 15, legendTitleFont = 12, legendTextFont = 10,
                            statFont = 4, table = FALSE, stat = TRUE, palette = "RdYlBu", tag = "year-item") {
 
 
@@ -121,18 +121,19 @@ plotCorrHist2D <- function(x, y, title = NULL, xlab = "x", ylab = "y", bins = 40
 
       corr <- rbind(corr, all)
       tag1 <- paste0(na, "-", year)
-      tagTitle <- if (tag == "year-item") tag1 else if (tag == "year") year else if (tag == "item") na
+      tagTitle <- if (tag == "year-item") tag1 else if (tag == "year") year else if (tag == "item") na else NULL
+      titlePlot<- if (!is.null(tagTitle)) paste0(title, " ", "(", tagTitle, ")") else ""
 
       plots[[tag1]] <- ggplot(data, aes_string(x = valueX, y = valueY)) + theme_bw()
       plots[[tag1]] <- plots[[tag1]] + geom_bin2d(bins = bins) + coord_fixed(ratio = 1) +
         geom_abline(intercept = 0, slope = 1) + geom_vline(xintercept = 0) + geom_hline(yintercept = 0)
-      plots[[tag1]] <- plots[[tag1]] + labs(x = xlab, y = ylab, title = paste0(title, " ", "(", tagTitle, ")")) +
+      plots[[tag1]] <- plots[[tag1]] + labs(x = xlab, y = ylab, title = titlePlot) +
         scale_fill_gradientn(colours = r, trans = "log", breaks = breaks)
       plots[[tag1]] <- plots[[tag1]] + theme(axis.text.x = element_text(color = "grey20", size = axisFont),
                                              axis.title.x = element_text(color = "grey20", size = axisTitleFont),
                                              axis.text.y = element_text(color = "grey20", size = axisFont),
                                              axis.title.y = element_text(color = "grey20", size = axisTitleFont),
-                                             plot.title = element_text(size = titleFontSize, face = "bold"),
+                                             plot.title = element_text(size = TitleFontSize, face = "bold"),
                                              legend.text = element_text(size = legendTextFont),
                                              legend.title = element_text(size = legendTitleFont),
                                              legend.background = element_blank())

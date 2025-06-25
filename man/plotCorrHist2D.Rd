@@ -20,7 +20,7 @@ plotCorrHist2D(
   ncols = 2,
   axisFont = 13,
   axisTitleFont = 13,
-  titleFontSize = 15,
+  TitleFontSize = 15,
   legendTitleFont = 12,
   legendTextFont = 10,
   statFont = 4,
@@ -62,7 +62,7 @@ in the current working directory. If NULL, no plots are saved.}
 
 \item{axisTitleFont}{Font size of title of axis of the correlation plot}
 
-\item{titleFontSize}{Font size of title of correlation plot}
+\item{TitleFontSize}{Font size of title of correlation plot}
 
 \item{legendTitleFont}{Font size of the title of the legend}
 
@@ -77,7 +77,7 @@ in the current working directory. If NULL, no plots are saved.}
 \item{palette}{palette selection for heatd maps based on the RColorBrewer library}
 
 \item{tag}{for multiple items in the second and third dimensions of the magpie object,
-should the title include "year", "item", "year-item".}
+should the title include "year", "item", "year-item", "" if no subtitle is wanted.}
 }
 \description{
 Plots 2D density plots to evaluate the relationship between two datasets.
