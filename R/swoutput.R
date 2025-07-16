@@ -2,7 +2,7 @@
 #' 
 #' Creates LaTeX code for plot (\code{\link[luplot]{magpie2ggplot2}}) and data
 #' table (\code{\link[xtable]{print.xtable}}) based on MAgPIE objects and adds
-#' it to a \code{"\linkS4class{swStream}"} object.
+#' it to a \code{\link[lusweave:swStream-class]{swStream}} object.
 #' 
 #' Creates preformatted plots and data tables based on MAgPIE objects. Format
 #' is optimized for readability. Data tables with more than 12 columns are
@@ -35,16 +35,16 @@
 #' @importFrom magclass ncells nyears ndata getNames getRegions
 #' @export
 #' @seealso
-#' \code{"\linkS4class{swStream}"},\code{\link{swopen}},\code{\link{swclose}},\code{\link{swR}},\code{\link{swtable}},\code{\link{swfigure}}
+#' \code{\link[lusweave:swStream-class]{swStream}},\code{\link[lusweave]{swopen}},\code{\link[lusweave]{swclose}},\code{\link[lusweave]{swR}},\code{\link[lusweave]{swtable}},\code{\link[lusweave]{swfigure}}
 #' @examples
-#' 
+#'
 #' \dontrun{
 #' sw<-swopen("croparea_reg.pdf")
 #' swlatex(sw,"\newpage")
 #' swlatex(sw,"\section{Croparea - regional}")
 #' swoutput(sw,croparea(gdx),"mio. ha",scenario="test")
 #' swclose(sw)}
-#' 
+#'
 swoutput <- function(stream, data, unit = "unit", plot = TRUE, table = TRUE,
                      scenarioName = "default", textSize = 16, digits = 0, plotLevel = NULL, ...) {
   if (!is.list(data)) {
