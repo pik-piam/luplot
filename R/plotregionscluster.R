@@ -12,11 +12,11 @@
 #' @importFrom data.table data.table
 #' @importFrom ggplot2 scale_fill_manual theme_linedraw scale_alpha_continuous geom_tile
 #' @importFrom mip plotstyle
+#' @importFrom rlang .data
 #' @examples
 #' x <- paste(rep(paste0("REG", 1:5), each = 12000), rep(1:25, each = 2400), sep = ".")[1:59199]
 #' plotregionscluster(x)
 #' @export
-
 plotregionscluster <- function(x, cells = "magpiecell") {
 
   # Internal function that prepares data frame for plot
@@ -70,16 +70,15 @@ plotregionscluster <- function(x, cells = "magpiecell") {
   data("world", envir = environment(), package = "luplot")
 
   x <- .prepData(x, cells = cells)
-
   # plot map of regions and clusters
-  map <- ggplot(x, aes_(~lon, ~lat)) +
+  map <- ggplot(x, aes(x = .data$lon, y = .data$lat)) +
     geom_polygon(data = wrld_simpl_df,
-                 aes_(~long, ~lat, group = ~group, fill = ~hole),
+                 aes(x = .data$long, y = .data$lat, group = .data$group, fill = .data$hole),
                  fill = "lightgrey") +
-    geom_tile(aes_(fill = ~region, alpha = ~alpha)) +
+    geom_tile(aes(fill = .data$region, alpha = .data$alpha)) +
     geom_path(data = wrld_simpl_df,
-              aes_(~long, ~lat, group = ~group, fill = NULL),
-              color = "grey10", size = 0.2) +
+              aes(x = .data$long, y = .data$lat, group = .data$group, fill = NULL),
+              color = "grey10", linewidth = 0.2) +
     scale_alpha_continuous(range = range(x$alpha)) +
     scale_fill_manual(values = mip::plotstyle(levels(x$region)),
                       labels = attr(x, "legend_text")) +
